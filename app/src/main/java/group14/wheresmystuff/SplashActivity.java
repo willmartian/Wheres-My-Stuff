@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.content.Intent;
+import android.view.View.OnClickListener;
 
 
 
@@ -27,10 +28,22 @@ public class SplashActivity extends AppCompatActivity {
             }
 
         });
+        Button registerButton = (Button) findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToRegisterActivity();
+            }
+        });
     }
 
     private void goToLoginActivity(){
         Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToRegisterActivity(){
+        Intent intent = new Intent(this,RegistrationActivity.class);
         startActivity(intent);
     }
 
