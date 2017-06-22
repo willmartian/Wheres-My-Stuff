@@ -6,11 +6,11 @@
 
     <EditText
         android:id="@+id/name_textbox"
+        android:hint="Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/username_textBox"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="username" />
+        android:hint="username" />
 
     <EditText
         android:id="@+id/password_textBox"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Password" />
+        android:hint="Password" />
 
     <RadioGroup
         android:checkedButton="@+id/user_radioButton"
