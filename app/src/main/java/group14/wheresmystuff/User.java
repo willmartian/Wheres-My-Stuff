@@ -10,8 +10,17 @@ public class User {
 
     public User(String name, String loginID, String password, String email) {
         this.name = name;
+        this.loginID = loginID;
         this.password = password;
         this.email = email;
         this.isLocked = false;
+    }
+
+    public String getLoginID() {
+        return loginID;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
