@@ -77,6 +77,14 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        Button cancel = (Button) findViewById(R.id.cancelLoginButton);
+        cancel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSplashActivity();
+            }
+        });
     }
 
     /**
@@ -202,6 +210,11 @@ public class LoginActivity extends AppCompatActivity {
         protected void onCancelled() {
             mAuthTask = null;
         }
+    }
+
+    private void goToSplashActivity(){
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
     }
 }
 
