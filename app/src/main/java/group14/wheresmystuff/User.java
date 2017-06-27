@@ -20,7 +20,7 @@ public class User {
         return loginID;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
+
+    //TODO: add getters and setters
 }

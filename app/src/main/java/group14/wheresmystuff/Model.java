@@ -9,27 +9,27 @@ import java.util.ArrayList;
 
 public class Model extends Application {
 
-//    private static ArrayList<String> userList;
     private static ArrayList<User> userList;
+    private static ArrayList<Item> itemList;
 
     @Override
     public void onCreate() {
         super.onCreate();
         userList = new ArrayList<User>();
+        //example user and admin
         userList.add(new User("Default User", "user", "pass", "user@example.com"));
         userList.add(new User("Default Admin", "admin", "pass2", "admin@example.com"));
 
-//        userList = new ArrayList<String>();
-//        userList.add("user:pass");
-//        userList.add("admin:pass2");
+        itemList = new ArrayList<Item>();
+        //example item
+        itemList.add(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "Atlanta", Item.Category.MISC, 1000000, userList.get(0)));
     }
 
     public static ArrayList<User> getUserList() {
         return userList;
     }
 
-//    public static ArrayList<String> getUserList() {
-//        return userList;
-//    }
-
+    public static ArrayList<Item> getItemList() {
+        return itemList;
+    }
 }

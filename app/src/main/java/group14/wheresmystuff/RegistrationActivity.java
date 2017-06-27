@@ -9,6 +9,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mNameView;
     private EditText mPasswordView;
     private EditText mUserIDView;
+    private RadioButton mAdminRadio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mNameView = (EditText) findViewById(R.id.name_textBox);
         mPasswordView = (EditText) findViewById(R.id.password_textBox);
         mUserIDView = (EditText) findViewById(R.id.username_textBox);
+        mAdminRadio = (RadioButton) findViewById(R.id.admin_radioButton);
 
         Button register = (Button) findViewById(R.id.register_button);
         Button cancel = (Button) findViewById(R.id.cancel_button);
@@ -43,9 +46,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 String userID = mUserIDView.getText().toString();
                 String password = mPasswordView.getText().toString();
                 String name = mNameView.getText().toString();
-                Model.getUserList().add(new User(name, userID, password, ""));
+                boolean isAdmin = mAdminRadio.isChecked();
+                if (isAdmin) {
+                    Model.getUserList().add(new Admin(name, userID, password, ""));
+                } else {
+                    Model.getUserList().add(new User(name, userID, password, ""));
+                }
                 goToLoginActivity();
-
             }
 
         });
