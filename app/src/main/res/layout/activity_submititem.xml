@@ -139,6 +139,7 @@
             android:layout_alignStart="@+id/rewardTextBox"
             android:layout_below="@+id/textView"
             android:layout_weight="1"
+            android:checked="true"
             android:text="Found" />
 
         <RadioButton
