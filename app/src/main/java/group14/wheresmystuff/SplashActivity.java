@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private Model model = new Model();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
