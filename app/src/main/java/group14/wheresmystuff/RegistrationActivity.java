@@ -95,6 +95,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
+
     private boolean isPasswordValid(String password){
         return password.length() >= 4;
     }
