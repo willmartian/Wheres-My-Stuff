@@ -3,6 +3,7 @@ package group14.wheresmystuff;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -46,16 +47,56 @@ public class RegistrationActivity extends AppCompatActivity {
                 String userID = mUserIDView.getText().toString();
                 String password = mPasswordView.getText().toString();
                 String name = mNameView.getText().toString();
-                boolean isAdmin = mAdminRadio.isChecked();
-                if (isAdmin) {
-                    Model.getUserList().add(new Admin(name, userID, password, ""));
-                } else {
-                    Model.getUserList().add(new User(name, userID, password, ""));
+
+                mNameView.setError(null);
+                mUserIDView.setError(null);
+                mPasswordView.setError(null);
+
+                boolean cancel = false;
+                View focusView = null;
+
+                if (!isPasswordValid(password)) {
+                    mPasswordView.setError(getString(R.string.error_invalid_password));
+                    focusView = mPasswordView;
+                    cancel = true;
                 }
-                goToLoginActivity();
+
+                if (TextUtils.isEmpty(password)) {
+                    mPasswordView.setError(getString(R.string.error_field_required));
+                    focusView = mPasswordView;
+                    cancel = true;
+                }
+
+                if (TextUtils.isEmpty(userID)) {
+                    mUserIDView.setError(getString(R.string.error_field_required));
+                    focusView = mUserIDView;
+                    cancel = true;
+                }
+
+                if (TextUtils.isEmpty(name)) {
+                    mNameView.setError(getString(R.string.error_field_required));
+                    focusView = mNameView;
+                    cancel = true;
+                }
+
+                if (cancel) {
+                    focusView.requestFocus();
+                } else {
+                    boolean isAdmin = mAdminRadio.isChecked();
+                    if (isAdmin) {
+                        Model.getUserList().add(new Admin(name, userID, password, ""));
+                    } else {
+                        Model.getUserList().add(new User(name, userID, password, ""));
+                    }
+                    goToLoginActivity();
+                }
             }
 
         });
+    }
+
+    private boolean isPasswordValid(String password){
+        return password.length() >= 4;
     }
 
     private void goToLoginActivity(){
