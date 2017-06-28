@@ -27,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        Button addItem = (Button) findViewById(R.id.addItemButton);
+        addItem.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                goToSubmitItemActivity();
+
+            }
+
+        });
     }
 
 
@@ -35,5 +47,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    private void goToSubmitItemActivity(){
+        Intent intent = new Intent(this, SubmitItemActivity.class);
+        startActivity(intent);
+    }
 }

@@ -15,10 +15,9 @@ import android.widget.ArrayAdapter;
  * Created by Richard on 6/22/2017.
  */
 
-public class SubmitItemActivity {
+public class SubmitItemActivity extends AppCompatActivity {
     private Spinner categorySpinner;
     private String[] categoryArray = new String[]{"Keepsake","Heirloom","Miscellaneous"};
-    public class RegistrationActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_submititem);
@@ -31,5 +30,4 @@ public class SubmitItemActivity {
             // Apply the adapter to the spinner
             categorySpinner.setAdapter(adapter);
         }
-    }
 }
