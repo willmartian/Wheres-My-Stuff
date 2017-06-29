@@ -16,6 +16,14 @@ public class Item {
 
     public enum Category {
         KEEPSAKE, HEIRLOOM, MISC;
+
+        public static String[] stringEnumArray() {
+            String[] arr = new String[values().length];
+            for(int i = 0; i < values().length; i++) {
+                arr[i] = values()[i].toString();
+            }
+            return arr;
+        }
     }
 
     public enum ItemType {
@@ -36,7 +44,7 @@ public class Item {
     }
     @Override
     public String toString() {
-        return name + " " + location ;
+        return itemType.toString() + ": \"" + name + "\" in " + location;
     }
 
     public String getName() {

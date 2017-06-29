@@ -12,8 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
-import group14.wheresmystuff.Item.ItemType;
-import group14.wheresmystuff.Item.Category;
+import group14.wheresmystuff.Item.*;
 
 
 
@@ -25,46 +24,66 @@ public class SubmitItemActivity extends AppCompatActivity{
     String name;
     String description;
     String reward;
+    String location;
     Category itemCategory;
-    RadioButton foundButton = (RadioButton) findViewById(R.id.foundButton);
-    RadioButton lostButton = (RadioButton) findViewById(R.id.lostButton);
-    RadioButton donateButton = (RadioButton) findViewById(R.id.donateButton);
-    EditText nameBox = (EditText) findViewById(R.id.nameTextBox);
-    EditText descriptionBox = (EditText) findViewById(R.id.nameTextBox);
-    EditText rewardBox = (EditText) findViewById(R.id.rewardTextBox);
-    Spinner spinnerBox = (Spinner) findViewById(R.id.categorySpinner);
+    RadioButton foundButton;
+    RadioButton lostButton;
+    RadioButton donateButton;
+    EditText nameBox;
+    EditText descriptionBox;
+    EditText rewardBox;
+    EditText locationBox;
+    Spinner spinnerBox;
     ItemType itemType;
-    private String[] categoryArray = new String[]{"Keepsake","Heirloom","Miscellaneous"};
+    String[] categoryArray;
+    Spinner categorySpinner;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_submititem);
-            if (foundButton.isChecked()) {
-                itemType = ItemType.FOUND;
-            }
-            if (lostButton.isChecked()) {
-                itemType = ItemType.LOST;
-            }
-            if (donateButton.isChecked()) {
-                itemType = ItemType.NEED;
-            }
-            name = nameBox.getText().toString();
-            description = descriptionBox.getText().toString();
-            reward = rewardBox.getText().toString();
-            itemCategory = Category.valueOf(spinnerBox.getSelectedItem().toString());
-            Spinner categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
+
+
+            //grabbing form data
+            foundButton = (RadioButton) findViewById(R.id.foundButton);
+            lostButton = (RadioButton) findViewById(R.id.lostButton);
+            donateButton = (RadioButton) findViewById(R.id.donateButton);
+            nameBox = (EditText) findViewById(R.id.nameTextBox);
+            descriptionBox = (EditText) findViewById(R.id.nameTextBox);
+            rewardBox = (EditText) findViewById(R.id.rewardTextBox);
+            locationBox = (EditText) findViewById(R.id.locationTextBox);
+            spinnerBox = (Spinner) findViewById(R.id.categorySpinner);
+            categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
+            categoryArray = Item.Category.stringEnumArray();
+
+
             // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_spinner_dropdown_item, categoryArray);
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             // Apply the adapter to the spinner
+
             categorySpinner.setAdapter(adapter);
             Button addItem = (Button) findViewById(R.id.addItemButton);
             addItem.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Model.getItemList().add(new Item(itemType, name , description, "Atlanta", itemCategory, new Double(reward), Model.getUserList().get(0)));
+                    name = nameBox.getText().toString();
+                    description = descriptionBox.getText().toString();
+                    reward = rewardBox.getText().toString();
+                    location = locationBox.getText().toString();
+                    itemCategory = Category.valueOf(spinnerBox.getSelectedItem().toString());
+
+                    if (foundButton.isChecked()) {
+                        itemType = ItemType.FOUND;
+                    }
+                    if (lostButton.isChecked()) {
+                        itemType = ItemType.LOST;
+                    }
+                    if (donateButton.isChecked()) {
+                        itemType = ItemType.NEED;
+                    }
+                    Model.getItemList().add(new Item(itemType, name , description, location, itemCategory, new Double(reward), Model.getUserList().get(0)));
                     goToDisplayAllItemActivity();
                 }
 
