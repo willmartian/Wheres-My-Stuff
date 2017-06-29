@@ -4,6 +4,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -63,8 +64,8 @@ public class SubmitItemActivity extends AppCompatActivity{
             // Apply the adapter to the spinner
 
             categorySpinner.setAdapter(adapter);
-            Button cancel = (Button) findViewById(R.id.cancelButton);
-            cancel.setOnClickListener(new OnClickListener() {
+            Button cancelButton = (Button) findViewById(R.id.cancelButton);
+            cancelButton.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -79,9 +80,15 @@ public class SubmitItemActivity extends AppCompatActivity{
 
                 @Override
                 public void onClick(View v) {
+
+
+
                     name = nameBox.getText().toString();
                     description = descriptionBox.getText().toString();
                     reward = rewardBox.getText().toString();
+                    if(reward.length() == 0) {
+                        reward = "0";
+                    }
                     location = locationBox.getText().toString();
                     itemCategory = Category.valueOf(spinnerBox.getSelectedItem().toString());
 
@@ -94,12 +101,34 @@ public class SubmitItemActivity extends AppCompatActivity{
                     if (donateButton.isChecked()) {
                         itemType = ItemType.NEED;
                     }
-                    Model.getItemList().add(new Item(itemType, name , description, location, itemCategory, new Double(reward), Model.getUserList().get(0)));
-                    goToDisplayAllItemActivity();
+                    if (checkComplete()) {
+                        Model.getItemList().add(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getUserList().get(0)));
+                        goToDisplayAllItemActivity();
+                    }
                 }
 
             });
         }
+
+    /**
+     * Checks if all of the EditText elements in the activity are complete
+     * @return boolean true if all elements are complete
+     */
+    private boolean checkComplete() {
+        EditText[] elementArray = {nameBox, descriptionBox, rewardBox, locationBox};
+        String[] valueArray = {name, description, reward, location};
+        boolean cancel = false;
+        View focusView = null;
+        for (int i = 0; i < elementArray.length; i++) {
+            if (TextUtils.isEmpty(valueArray[i])) {
+                elementArray[i].setError(getString(R.string.error_field_required));
+                focusView = nameBox;
+                cancel = true;
+            }
+        }
+        return !cancel;
+    }
+
     private void goToDisplayAllItemActivity(){
         Intent intent = new Intent(this,DisplayAllItemActivity.class);
         startActivity(intent);
