@@ -109,11 +109,11 @@ public class LoginActivity extends AppCompatActivity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
+//        if (!TextUtils.isEmpty(password)) {// && !isPasswordValid(password)) {
+//            mPasswordView.setError(getString(R.string.error_invalid_password));
+//            focusView = mPasswordView;
+//            cancel = true;
+//        }
 
         // Check for a valid username
         if (TextUtils.isEmpty(username)) {
@@ -149,9 +149,9 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() >= 4;
-    }
+//    private boolean isPasswordValid(String password) {
+//        return password.length() >= 4;
+//    }
 
 
     /**
