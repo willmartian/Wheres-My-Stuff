@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import java.util.ArrayList;
+
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -73,6 +75,12 @@ public class RegistrationActivity extends AppCompatActivity {
                     cancel = true;
                 }
 
+                if (!isUserIDValid(userID)) {
+                    mUserIDView.setError("Username already exists");
+                    focusView = mUserIDView;
+                    cancel = true;
+                }
+
                 if (TextUtils.isEmpty(name)) {
                     mNameView.setError(getString(R.string.error_field_required));
                     focusView = mNameView;
@@ -93,6 +101,17 @@ public class RegistrationActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private boolean isUserIDValid(String userID){
+        boolean valid = true;
+        ArrayList<User> userList = Model.getUserList();
+        for(int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getLoginID().equals(userID)){
+                valid = false;
+            }
+        }
+        return valid;
     }
 
 

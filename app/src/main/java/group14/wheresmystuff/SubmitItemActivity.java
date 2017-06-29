@@ -63,6 +63,17 @@ public class SubmitItemActivity extends AppCompatActivity{
             // Apply the adapter to the spinner
 
             categorySpinner.setAdapter(adapter);
+            Button cancel = (Button) findViewById(R.id.cancelButton);
+            cancel.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    goToCancelItemActivity();
+
+                }
+
+            });
             Button addItem = (Button) findViewById(R.id.addItemButton);
             addItem.setOnClickListener(new OnClickListener() {
 
@@ -93,5 +104,11 @@ public class SubmitItemActivity extends AppCompatActivity{
         Intent intent = new Intent(this,DisplayAllItemActivity.class);
         startActivity(intent);
     }
+
+    private void goToCancelItemActivity(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }
