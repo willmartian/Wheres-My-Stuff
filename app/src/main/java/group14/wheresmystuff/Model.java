@@ -25,10 +25,18 @@ public class Model extends Application {
         itemList.add(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "Atlanta", Item.Category.MISC, 1000000, userList.get(0)));
     }
 
+    /**
+     * getter for user list
+     * @return ArrayList gets and returns the user list
+     */
     public static ArrayList<User> getUserList() {
         return userList;
     }
 
+    /**
+     * getter for item list
+     * @return ArrayList gets and returns the item list
+     */
     public static ArrayList<Item> getItemList() {
         return itemList;
     }
