@@ -17,6 +17,10 @@ public class Item {
     public enum Category {
         KEEPSAKE, HEIRLOOM, MISC;
 
+        /**
+         * Method to return an array representation of the enum value names
+         * @return Sting[] of value names
+         */
         public static String[] stringEnumArray() {
             String[] arr = new String[values().length];
             for(int i = 0; i < values().length; i++) {
