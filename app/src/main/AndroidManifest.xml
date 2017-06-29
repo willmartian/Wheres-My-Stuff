@@ -28,6 +28,7 @@
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegistrationActivity"></activity>
         <activity android:name=".SubmitItemActivity"></activity>
+        <activity android:name=".DisplayAllItemActivity"></activity>
     </application>
 
 </manifest>

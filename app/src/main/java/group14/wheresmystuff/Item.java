@@ -34,5 +34,9 @@ public class Item {
         this.open = true;
         this.date = new Date();
     }
+    @Override
+    public String toString() {
+        return name + " " + location ;
+    }
     //TODO: add getters and setters
 }
