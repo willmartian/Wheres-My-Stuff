@@ -21,9 +21,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Item Name:"
-        android:layout_above="@+id/nameTextBox"
+        android:layout_below="@+id/radioGroup2"
         android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="17dp" />
 
     <EditText
         android:id="@+id/nameTextBox"
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:layout_above="@+id/textView3"
+        android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2" />
 
@@ -39,21 +40,22 @@
         android:id="@+id/descriptionTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:layout_alignTop="@+id/textView3"
         android:layout_alignLeft="@+id/nameTextBox"
         android:layout_alignStart="@+id/nameTextBox"
-        android:layout_centerVertical="true"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:layout_marginTop="17dp" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description:"
-        android:layout_above="@+id/descriptionTextBox"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/nameTextBox"
         android:layout_alignLeft="@+id/descriptionTextBox"
-        android:layout_alignStart="@+id/descriptionTextBox"
-        android:layout_marginBottom="13dp" />
+        android:layout_alignStart="@+id/descriptionTextBox" />
 
     <TextView
         android:id="@+id/textView4"
@@ -69,10 +71,9 @@
         android:id="@+id/categorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
         android:layout_alignLeft="@+id/textView4"
         android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="20dp"
         android:layout_alignRight="@+id/descriptionTextBox"
         android:layout_alignEnd="@+id/descriptionTextBox" />
 
@@ -80,11 +81,11 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
         android:text="Reward:"
-        android:layout_below="@+id/categorySpinner"
-        android:layout_alignLeft="@+id/categorySpinner"
-        android:layout_alignStart="@+id/categorySpinner" />
+        android:layout_above="@+id/addItemButton"
+        android:layout_alignLeft="@+id/locationTextBox"
+        android:layout_alignStart="@+id/locationTextBox"
+        android:layout_marginBottom="21dp" />
 
     <EditText
         android:id="@+id/rewardTextBox"
@@ -105,8 +106,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Item"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/rewardTextBox"
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView" />
 
@@ -123,18 +124,17 @@
     <RadioGroup
         android:id="@+id/radioGroup2"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="18dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="11dp"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_above="@+id/textView2">
+        android:layout_alignStart="@+id/textView">
 
 
         <RadioButton
             android:id="@+id/foundButton"
             android:layout_width="wrap_content"
-            android:layout_height="12dp"
+            android:layout_height="7dp"
             android:layout_alignLeft="@+id/rewardTextBox"
             android:layout_alignStart="@+id/rewardTextBox"
             android:layout_below="@+id/textView"
@@ -145,7 +145,7 @@
         <RadioButton
             android:id="@+id/lostButton"
             android:layout_width="wrap_content"
-            android:layout_height="12dp"
+            android:layout_height="7dp"
             android:layout_above="@+id/foundButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -155,12 +155,32 @@
         <RadioButton
             android:id="@+id/donateButton"
             android:layout_width="wrap_content"
-            android:layout_height="12dp"
+            android:layout_height="7dp"
             android:layout_above="@+id/textView2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_weight="1"
             android:text="Donate" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location:"
+        android:layout_below="@+id/categorySpinner"
+        android:layout_alignLeft="@+id/categorySpinner"
+        android:layout_alignStart="@+id/categorySpinner"
+        android:layout_marginTop="12dp" />
+
+    <EditText
+        android:id="@+id/locationTextBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/textView6"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6" />
 
 </RelativeLayout>
