@@ -46,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String userID = mUserIDView.getText().toString();
+                String userID = mUserIDView.getText().toString().trim();
                 String password = mPasswordView.getText().toString();
                 String name = mNameView.getText().toString();
 
