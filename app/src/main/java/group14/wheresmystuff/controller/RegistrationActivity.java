@@ -1,4 +1,4 @@
-package group14.wheresmystuff;
+package group14.wheresmystuff.controller;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
 import java.util.ArrayList;
+
+import group14.wheresmystuff.R;
+import group14.wheresmystuff.model.Admin;
+import group14.wheresmystuff.model.Model;
+import group14.wheresmystuff.model.User;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -38,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
         cancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToSplashActivity();
+                goToPage(LoginActivity.class);
             }
         });
         register.setOnClickListener(new OnClickListener() {
@@ -96,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     } else {
                         Model.getUserList().add(new User(name, userID, password, ""));
                     }
-                    goToLoginActivity();
+                    goToPage(LoginActivity.class);
                 }
             }
 
@@ -119,13 +123,8 @@ public class RegistrationActivity extends AppCompatActivity {
         return password.length() >= 4;
     }
 
-    private void goToLoginActivity(){
-        Intent intent = new Intent(this,LoginActivity.class);
+    public void goToPage(Class next) {
+        Intent intent = new Intent(this, next);
         startActivity(intent);
     }
-    private void goToSplashActivity(){
-        Intent intent = new Intent(this, SplashActivity.class);
-        startActivity(intent);
-    }
-
 }

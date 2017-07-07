@@ -1,4 +1,4 @@
-package group14.wheresmystuff;
+package group14.wheresmystuff.model;
 import java.util.Date;
 
 /**

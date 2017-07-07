@@ -1,6 +1,5 @@
-package group14.wheresmystuff;
+package group14.wheresmystuff.controller;
 
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -13,15 +12,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
-import group14.wheresmystuff.Item.*;
 
+import group14.wheresmystuff.R;
+import group14.wheresmystuff.model.Item;
+import group14.wheresmystuff.model.Item.*;
+import group14.wheresmystuff.model.Model;
 
 
 /**
  * Created by Richard on 6/22/2017.
  */
 
-public class SubmitItemActivity extends AppCompatActivity{
+public class SubmitItemActivity extends AppCompatActivity {
     String name;
     String description;
     String reward;
@@ -70,7 +72,7 @@ public class SubmitItemActivity extends AppCompatActivity{
                 @Override
                 public void onClick(View v) {
 
-                    goToCancelItemActivity();
+                    goToPage(MainActivity.class);
 
                 }
 
@@ -103,7 +105,7 @@ public class SubmitItemActivity extends AppCompatActivity{
                     }
                     if (checkComplete()) {
                         Model.getItemList().add(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getUserList().get(0)));
-                        goToDisplayAllItemActivity();
+                        goToPage(DisplayItemsActivity.class);
                     }
                 }
 
@@ -129,15 +131,8 @@ public class SubmitItemActivity extends AppCompatActivity{
         return !cancel;
     }
 
-    private void goToDisplayAllItemActivity(){
-        Intent intent = new Intent(this,DisplayAllItemActivity.class);
+    public void goToPage(Class next) {
+        Intent intent = new Intent(this, next);
         startActivity(intent);
     }
-
-    private void goToCancelItemActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-    }
-
-
 }

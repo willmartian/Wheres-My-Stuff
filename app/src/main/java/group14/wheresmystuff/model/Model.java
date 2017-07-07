@@ -1,8 +1,9 @@
-package group14.wheresmystuff;
+package group14.wheresmystuff.model;
 
 /**
  * Created by will on 6/21/2017.
  */
+import android.app.Activity;
 import android.app.Application;
 
 import java.util.ArrayList;
@@ -39,5 +40,34 @@ public class Model extends Application {
      */
     public static ArrayList<Item> getItemList() {
         return itemList;
+    }
+
+    /**
+     * Filter method for itemList
+     * @param filters enum filters to filter the itemList with
+     * @return the filtered itemList
+     */
+    public static ArrayList<Item> getItemList(Enum... filters) {
+        ArrayList<Item> filteredList = new ArrayList<Item>();
+        for (Item item : itemList) {
+            boolean check = false;
+            for (Enum filter : filters) {
+                Enum checkAgainst;
+                if (filter.getClass() == Item.ItemType.class) {
+                    checkAgainst = item.getItemType();
+                } else if (filter.getClass() == Item.Category.class) {
+                    checkAgainst = item.getCategory();
+                } else {
+                    throw new IllegalArgumentException("Illegal filter given.");
+                }
+                if (checkAgainst == filter) {
+                    check = true;
+                }
+            }
+            if (check) {
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
     }
 }

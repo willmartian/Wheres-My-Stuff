@@ -1,4 +1,4 @@
-package group14.wheresmystuff;
+package group14.wheresmystuff.model;
 
 /**
  * Created by will on 6/21/2017.

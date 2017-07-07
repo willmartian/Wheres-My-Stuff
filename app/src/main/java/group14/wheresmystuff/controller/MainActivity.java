@@ -1,4 +1,4 @@
-package group14.wheresmystuff;
+package group14.wheresmystuff.controller;
 
 import android.support.v7.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.content.Intent;
 
+import group14.wheresmystuff.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                goToSplashActivity();
+                goToPage(LoginActivity.class);
 
             }
 
@@ -34,21 +35,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                goToSubmitItemActivity();
+                goToPage(SubmitItemActivity.class);
 
             }
 
         });
     }
 
-
-    private void goToSplashActivity(){
-        Intent intent = new Intent(this, SplashActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToSubmitItemActivity(){
-        Intent intent = new Intent(this, SubmitItemActivity.class);
+    public void goToPage(Class next) {
+        Intent intent = new Intent(this, next);
         startActivity(intent);
     }
 }
