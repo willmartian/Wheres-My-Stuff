@@ -96,9 +96,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else {
                     boolean isAdmin = mAdminRadio.isChecked();
                     if (isAdmin) {
-                        Model.getUserList().add(new Admin(name, userID, password, ""));
+                        Model.addUser(new Admin(name, userID, password, ""));
                     } else {
-                        Model.getUserList().add(new User(name, userID, password, ""));
+                        Model.addUser(new User(name, userID, password, ""));
                     }
                     goToPage(LoginActivity.class);
                 }

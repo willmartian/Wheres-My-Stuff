@@ -104,7 +104,7 @@ public class SubmitItemActivity extends AppCompatActivity {
                         itemType = ItemType.NEED;
                     }
                     if (checkComplete()) {
-                        Model.getItemList().add(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getUserList().get(0)));
+                        Model.addItem(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getUserList().get(0)));
                         goToPage(DisplayItemsActivity.class);
                     }
                 }
