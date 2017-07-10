@@ -43,6 +43,10 @@ public class DisplayItemsActivity extends AppCompatActivity {
         populateListView(Model.getItemList());
     }
 
+    /**
+     * Populates the list view with a given item list.
+     * @param itemList the list to populate with
+     */
     private void populateListView(ArrayList itemList) {
         Object[] Items = itemList.toArray();
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.simple_list_item_1, Items);
@@ -50,6 +54,10 @@ public class DisplayItemsActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
+    /**
+     * Set the app view to a given activity
+     * @param next the activity to go to
+     */
     public void goToPage(Class next) {
         Intent intent = new Intent(this, next);
         startActivity(intent);
