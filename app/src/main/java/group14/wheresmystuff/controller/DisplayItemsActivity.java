@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.content.Intent;
 
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 
 import group14.wheresmystuff.R;
 import group14.wheresmystuff.model.Model;
+
+import static group14.wheresmystuff.R.id.searchBar;
 
 /**
  * Created by Richard on 6/28/2017.
@@ -33,6 +37,19 @@ public class DisplayItemsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 goToPage(MainActivity.class);
+
+            }
+
+        });
+        ImageButton searchButton = (ImageButton) findViewById(R.id.imageButton1);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EditText edit = (EditText) findViewById(R.id.searchBar);
+                String str = edit.getText().toString();
+
+                populateListView(Model.getItemList(str));
 
             }
 
