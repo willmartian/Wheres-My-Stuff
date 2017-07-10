@@ -29,4 +29,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:id="@+id/viewItemsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/addItemButton"
+        android:layout_alignLeft="@+id/addItemButton"
+        android:layout_alignRight="@+id/addItemButton"
+        android:layout_alignStart="@+id/addItemButton"
+        android:layout_below="@+id/addItemButton"
+        android:layout_marginTop="26dp"
+        android:text="View Items" />
+
 </RelativeLayout>
