@@ -40,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        Button showItems = (Button) findViewById(R.id.viewItemsButton);
+        showItems.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                goToPage(DisplayItemsActivity.class);
+
+            }
+
+        });
     }
 
     public void goToPage(Class next) {

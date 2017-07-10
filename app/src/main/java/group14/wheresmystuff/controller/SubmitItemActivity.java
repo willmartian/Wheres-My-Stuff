@@ -50,7 +50,7 @@ public class SubmitItemActivity extends AppCompatActivity {
             lostButton = (RadioButton) findViewById(R.id.lostButton);
             donateButton = (RadioButton) findViewById(R.id.donateButton);
             nameBox = (EditText) findViewById(R.id.nameTextBox);
-            descriptionBox = (EditText) findViewById(R.id.nameTextBox);
+            descriptionBox = (EditText) findViewById(R.id.descriptionTextBox);
             rewardBox = (EditText) findViewById(R.id.rewardTextBox);
             locationBox = (EditText) findViewById(R.id.locationTextBox);
             spinnerBox = (Spinner) findViewById(R.id.categorySpinner);
