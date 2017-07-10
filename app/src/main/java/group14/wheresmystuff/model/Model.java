@@ -78,4 +78,14 @@ public class Model extends Application {
         }
         return filteredList;
     }
+
+    public static ArrayList<Item> getItemList(String query) {
+        ArrayList<Item> filteredList = new ArrayList<Item>();
+        for (Item item: itemList) {
+            if (item.getName().contains(query) || item.getDescription().contains(query)) {
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
+    }
 }

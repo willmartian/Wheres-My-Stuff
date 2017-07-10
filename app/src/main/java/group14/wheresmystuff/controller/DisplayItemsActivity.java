@@ -10,6 +10,8 @@ import android.widget.ListView;
 import android.content.Intent;
 
 
+import java.util.ArrayList;
+
 import group14.wheresmystuff.R;
 import group14.wheresmystuff.model.Model;
 
@@ -21,7 +23,9 @@ public class DisplayItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_displayitems);
-        populateListView();
+        //filtering the list view to only show results with the word "cat" would look like:
+        //  populateListView(Model.getItemList("cat"));
+        populateListView(); //makes and implicit call to: populateListView(Model.getItemList());
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
 
@@ -34,12 +38,18 @@ public class DisplayItemsActivity extends AppCompatActivity {
 
         });
     }
+
     private void populateListView() {
-        Object[] Items = Model.getItemList().toArray();
+        populateListView(Model.getItemList());
+    }
+
+    private void populateListView(ArrayList itemList) {
+        Object[] Items = itemList.toArray();
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.simple_list_item_1, Items);
         ListView list = (ListView) findViewById(R.id.listViewMain);
         list.setAdapter(adapter);
     }
+
     public void goToPage(Class next) {
         Intent intent = new Intent(this, next);
         startActivity(intent);

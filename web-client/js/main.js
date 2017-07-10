@@ -1,25 +1,39 @@
+
+
+
 var itemList = [];
 var userList = [];
+localStorage.setItem("itemList", JSON.stringify(itemList));
+localStorage.setItem("userList", JSON.stringify(userList));
 
+//MODEL----------------------------------------------------------------------
 function onLoad() {
-	
-    userList.push(new User("Default User", "user", "pass", "user@example.com"));
-    userList.push(new User("Default User2", "user2", "pass2", "user2@example.com"));
+    // if userList.length == 0 && itemList.length == 0
+	addUser(new User("Default User", "user", "pass", "user@example.com"));
+    // userList.push(new User("Default User", "user", "pass", "user@example.com"));
+    // userList.push(new User("Default User2", "user2", "pass2", "user2@example.com"));
 
-    itemList.push(new Item("LOST", "Mittens", "A cute kitty.", "Atlanta", "MISC", 1000000, userList[0]));
-    itemList.push(new Item("FOUND", "Sparky", "A smoll pupper.", "Atlanta", "MISC", 1000000, userList[1]));
+    addItem(new Item("LOST", "Mittens", "A cute kitty.", "Atlanta", "MISC", 1000000, userList[0]));
+    // itemList.push(new Item("FOUND", "Sparky", "A smoll pupper.", "Atlanta", "MISC", 1000000, userList[1]));
     
     displayUsers();
     displayItems();
 }
 
-function User(name, loginID, password, email) {
-	
-	this.name = name;
-    this.loginID = loginID;
-    this.password = password;
-    this.email = email;
-    this.isLocked = false;
+function addUser(user) {
+    var JSONul = localStorage.getItem("userList");
+    userList = JSON.parse(JSONul);
+    userList.push(user);
+    JSONul = JSON.stringify(userList);
+    localStorage.setItem("userList", JSONul);
+}
+
+function addItem(item) {
+    var JSONil = localStorage.getItem("itemList");
+    itemList = JSON.parse(JSONil);
+    itemList.push(item);
+    JSONil = JSON.stringify(itemList);
+    localStorage.setItem("itemList", JSONil);
 }
 
 function displayUsers() {
@@ -38,8 +52,21 @@ function displayItems() {
     }
 }
 
+//USER-----------------------------------------------------------------
+
+function User(name, loginID, password, email) {
+	
+	this.name = name;
+    this.loginID = loginID;
+    this.password = password;
+    this.email = email;
+    this.isLocked = false;
+}
+
+//ITEM-------------------------------------------------------------------
+
 function Item(itemType, name, description,
-	location, catergory, reward, creator) {
+	location, category, reward, creator) {
 	
 	this.itemType = itemType;
     this.name = name;
@@ -50,4 +77,15 @@ function Item(itemType, name, description,
     this.creator = creator;
     this.open = true;
     this.date = new Date();
+}
+
+//LOGIN/REGISTER------------------------------------------------------
+
+function register() {
+    var form = document.getElementById("registerForm");
+    var name = form.elements[0].value;
+    var id = form.elements[1].value;
+    var pass = form.elements[2].value;
+    addUser(new User(name, id, pass, ''));
+
 }
