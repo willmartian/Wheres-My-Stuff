@@ -15,6 +15,8 @@ import android.content.Intent;
 import java.util.ArrayList;
 
 import group14.wheresmystuff.R;
+import group14.wheresmystuff.model.Item;
+import group14.wheresmystuff.model.Item.ItemType;
 import group14.wheresmystuff.model.Model;
 
 import static group14.wheresmystuff.R.id.searchBar;
@@ -50,7 +52,7 @@ public class DisplayItemsActivity extends AppCompatActivity {
                 String str = edit.getText().toString();
 
                 populateListView(Model.getItemList(str));
-
+//                populateListView(Model.getItemList(Item.ItemType.Lost));
             }
 
         });
