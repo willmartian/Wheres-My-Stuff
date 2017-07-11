@@ -28,6 +28,11 @@
         <activity android:name=".controller.RegistrationActivity"></activity>
         <activity android:name=".controller.SubmitItemActivity"></activity>
         <activity android:name=".controller.DisplayItemsActivity"></activity>
+        <activity android:name=".controller.ItemActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBdr-hlzE_c3VgXvYSejFfnx2F-SFEDJ7g"/>
+
     </application>
 
 </manifest>

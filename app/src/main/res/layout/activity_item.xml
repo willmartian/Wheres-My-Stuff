@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/itemNameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemNameView" />
+
+    <TextView
+        android:id="@+id/itemDescriptionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemDescriptionView" />
+
+    <TextView
+        android:id="@+id/itemLocationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemLocationView" />
+
+    <TextView
+        android:id="@+id/itemRewardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemRewardView" />
+
+    <TextView
+        android:id="@+id/itemCreatorView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemCreatorView" />
+
+    <TextView
+        android:id="@+id/itemDateView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemDateView" />
+
+    <TextView
+        android:id="@+id/itemTypeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemTypeView" />
+
+    <TextView
+        android:id="@+id/itemCategoryView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="itemCategoryView" />
+</LinearLayout>

@@ -1,6 +1,7 @@
 package group14.wheresmystuff.controller;
 
-
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import java.util.ArrayList;
 
 import group14.wheresmystuff.R;
+import group14.wheresmystuff.model.Item;
 import group14.wheresmystuff.model.Model;
 
 /**
@@ -20,12 +22,25 @@ import group14.wheresmystuff.model.Model;
  */
 
 public class DisplayItemsActivity extends AppCompatActivity {
+    ListView list;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_displayitems);
+        list = (ListView) findViewById(R.id.listViewMain);
         //filtering the list view to only show results with the word "cat" would look like:
         //  populateListView(Model.getItemList("cat"));
+        populateListView(Model.getItemList(Item.ItemType.LOST));
         populateListView(); //makes and implicit call to: populateListView(Model.getItemList());
+
+        list.setOnItemClickListener(new OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                getItemAtPosition(position);
+                Bundle bundle = new Bundle();
+                bundle.putInt("itemIndex", position);
+                goToPage(ItemActivity.class, bundle);
+            }
+        });
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
 
@@ -50,7 +65,7 @@ public class DisplayItemsActivity extends AppCompatActivity {
     private void populateListView(ArrayList itemList) {
         Object[] Items = itemList.toArray();
         ArrayAdapter adapter = new ArrayAdapter(this, R.layout.simple_list_item_1, Items);
-        ListView list = (ListView) findViewById(R.id.listViewMain);
+        list = (ListView) findViewById(R.id.listViewMain);
         list.setAdapter(adapter);
     }
 
@@ -60,6 +75,12 @@ public class DisplayItemsActivity extends AppCompatActivity {
      */
     public void goToPage(Class next) {
         Intent intent = new Intent(this, next);
+        startActivity(intent);
+    }
+
+    public void goToPage(Class next, Bundle bundle) {
+        Intent intent = new Intent(this, next);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
