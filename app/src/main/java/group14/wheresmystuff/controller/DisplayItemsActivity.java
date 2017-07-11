@@ -50,27 +50,25 @@ public class DisplayItemsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText edit = (EditText) findViewById(R.id.searchBar);
                 String str = edit.getText().toString();
-//                if (str.toUpperCase().equals("FOUND")) {
-//                    populateListView(Model.getItemList(Item.ItemType.FOUND));
-//                }
-//                if (str.toUpperCase().equals("LOST")) {
-//                    populateListView(Model.getItemList(Item.ItemType.LOST));
-//                }
-//                if (str.toUpperCase().equals("DONATE")) {
-//                    populateListView(Model.getItemList(Item.ItemType.NEED));
-//                }
-                if (str.equals("FOUND")) {
+                if (str.toUpperCase().equals("FOUND")) {
                     populateListView(Model.getItemList(Item.ItemType.FOUND));
-//                    populateListView(Model.getItemList(str));
                 }
-
-
-//                populateListView(Model.getItemList(Item.ItemType.Lost));
+                else if (str.toUpperCase().equals("LOST")) {
+                    populateListView(Model.getItemList(Item.ItemType.LOST));
+                }
+                else if (str.toUpperCase().equals("NEED")) {
+                    populateListView(Model.getItemList(Item.ItemType.NEED));
+                }
+                else {
+                    populateListView(Model.getItemList(str));
+                }
             }
 
         });
     }
-
+    /*
+     * Calls the overloaded version of populateListView
+     */
     private void populateListView() {
         populateListView(Model.getItemList());
     }
