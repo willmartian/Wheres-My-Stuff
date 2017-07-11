@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.content.Intent;
 
@@ -15,7 +17,12 @@ import java.util.ArrayList;
 
 import group14.wheresmystuff.R;
 import group14.wheresmystuff.model.Item;
+
+import group14.wheresmystuff.model.Item.ItemType;
+
 import group14.wheresmystuff.model.Model;
+
+import static group14.wheresmystuff.R.id.searchBar;
 
 /**
  * Created by Richard on 6/28/2017.
@@ -52,6 +59,32 @@ public class DisplayItemsActivity extends AppCompatActivity {
             }
 
         });
+        ImageButton searchButton = (ImageButton) findViewById(R.id.imageButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EditText edit = (EditText) findViewById(R.id.searchBar);
+                String str = edit.getText().toString();
+//                if (str.toUpperCase().equals("FOUND")) {
+//                    populateListView(Model.getItemList(Item.ItemType.FOUND));
+//                }
+//                if (str.toUpperCase().equals("LOST")) {
+//                    populateListView(Model.getItemList(Item.ItemType.LOST));
+//                }
+//                if (str.toUpperCase().equals("DONATE")) {
+//                    populateListView(Model.getItemList(Item.ItemType.NEED));
+//                }
+                if (str.equals("FOUND")) {
+                    populateListView(Model.getItemList(Item.ItemType.FOUND));
+//                    populateListView(Model.getItemList(str));
+                }
+
+
+//                populateListView(Model.getItemList(Item.ItemType.Lost));
+            }
+
+        });
     }
 
     private void populateListView() {
@@ -78,9 +111,12 @@ public class DisplayItemsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void goToPage(Class next, Bundle bundle) {
         Intent intent = new Intent(this, next);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 }
+
+

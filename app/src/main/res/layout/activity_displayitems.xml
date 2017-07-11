@@ -11,20 +11,59 @@
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_search_category_default"
-        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/searchBar"
         android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/searchBar" />
+        android:layout_alignParentRight="true"
+        app:srcCompat="@android:drawable/ic_search_category_default" />
 
     <Button
         android:id="@+id/backButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_below="@+id/imageButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Back"
+        android:layout_below="@+id/foundButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+
+        <CheckBox
+    android:id="@+id/foundButton"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:layout_weight="1"
+    android:text="Found"
+    android:layout_alignBottom="@+id/lostButton"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+            android:onClick="onClick"
+            android:layout_alignTop="@+id/lostButton" />
+
+    <CheckBox
+        android:id="@+id/lostButton"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="Lost"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
+        android:layout_below="@+id/searchBar"
+        android:layout_toRightOf="@+id/foundButton"
+        android:layout_toEndOf="@+id/foundButton" />
+
+    <CheckBox
+        android:id="@+id/donateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_weight="1"
+        android:text="Donate"
+
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignBottom="@+id/lostButton"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     <ListView
         android:id="@+id/listViewMain"
         android:clickable="true"
@@ -35,9 +74,10 @@
         android:divider="#CCCCCC"
         android:dividerHeight="1dp"
         android:paddingLeft="2dp"
+        android:layout_below="@+id/backButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/backButton">
+        android:layout_marginTop="0dp">
     </ListView>
 
     <EditText
