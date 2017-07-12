@@ -23,7 +23,7 @@ public class Model extends Application {
 
         itemList = new ArrayList<Item>();
         //example item
-        itemList.add(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "Atlanta", Item.Category.MISC, 1000000, userList.get(0)));
+        itemList.add(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0)));
     }
 
     public static void addUser(User user) {
@@ -82,7 +82,8 @@ public class Model extends Application {
     public static ArrayList<Item> getItemList(String query) {
         ArrayList<Item> filteredList = new ArrayList<Item>();
         for (Item item: itemList) {
-            if (item.getName().contains(query) || item.getDescription().contains(query)) {
+            if (item.getName().toLowerCase().contains(query.toLowerCase())
+                    || item.getDescription().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(item);
             }
         }

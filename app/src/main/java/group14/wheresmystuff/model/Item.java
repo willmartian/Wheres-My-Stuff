@@ -1,5 +1,14 @@
 package group14.wheresmystuff.model;
+import android.location.Location;
+
 import java.util.Date;
+import android.location.Geocoder;
+import java.util.Locale;
+import java.util.List;
+import android.location.*;
+import android.content.Context;
+
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by will on 6/27/2017.

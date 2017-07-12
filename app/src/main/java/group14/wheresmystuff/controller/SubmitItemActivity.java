@@ -13,6 +13,13 @@ import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 
+import android.location.Geocoder;
+import java.util.Locale;
+import java.util.List;
+import android.location.*;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import group14.wheresmystuff.R;
 import group14.wheresmystuff.model.Item;
 import group14.wheresmystuff.model.Item.*;
@@ -40,7 +47,8 @@ public class SubmitItemActivity extends AppCompatActivity {
     ItemType itemType;
     String[] categoryArray;
     Spinner categorySpinner;
-        protected void onCreate(Bundle savedInstanceState) {
+
+    protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_submititem);
 

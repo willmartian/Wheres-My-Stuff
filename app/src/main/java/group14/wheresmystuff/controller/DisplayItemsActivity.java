@@ -66,24 +66,12 @@ public class DisplayItemsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText edit = (EditText) findViewById(R.id.searchBar);
                 String str = edit.getText().toString();
-//                if (str.toUpperCase().equals("FOUND")) {
-//                    populateListView(Model.getItemList(Item.ItemType.FOUND));
-//                }
-//                if (str.toUpperCase().equals("LOST")) {
-//                    populateListView(Model.getItemList(Item.ItemType.LOST));
-//                }
-//                if (str.toUpperCase().equals("DONATE")) {
-//                    populateListView(Model.getItemList(Item.ItemType.NEED));
-//                }
-                if (str.equals("FOUND")) {
-                    populateListView(Model.getItemList(Item.ItemType.FOUND));
-//                    populateListView(Model.getItemList(str));
+                try {
+                    populateListView(Model.getItemList(ItemType.valueOf(str.toUpperCase())));
+                } catch(IllegalArgumentException e) {
+                    populateListView(Model.getItemList(str));
                 }
-
-
-//                populateListView(Model.getItemList(Item.ItemType.Lost));
             }
-
         });
     }
 
