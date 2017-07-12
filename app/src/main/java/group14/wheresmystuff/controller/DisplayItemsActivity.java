@@ -66,6 +66,7 @@ public class DisplayItemsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText edit = (EditText) findViewById(R.id.searchBar);
                 String str = edit.getText().toString();
+
                 try {
                     populateListView(Model.getItemList(ItemType.valueOf(str.toUpperCase())));
                 } catch(IllegalArgumentException e) {
@@ -74,7 +75,9 @@ public class DisplayItemsActivity extends AppCompatActivity {
             }
         });
     }
-
+    /*
+     * Calls the overloaded version of populateListView
+     */
     private void populateListView() {
         populateListView(Model.getItemList());
     }
