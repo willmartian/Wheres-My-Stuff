@@ -3,8 +3,6 @@ package group14.wheresmystuff.controller;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -17,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ import group14.wheresmystuff.R;
 import group14.wheresmystuff.model.Model;
 
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     MapView mapView;
     GoogleMap map;
     @Override
@@ -81,6 +80,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .title(title));
     }
 
+//    @Override
+//    public boolean onMarkerClick(Marker marker) {
+//        Bundle bundle = new Bundle();
+//        int p = 0;
+//        for (Item item : Model.getItemList()) {
+//            if (item.getName() == marker.getTitle()) {
+//                bundle.putInt("itemIndex", p);
+//                goToPage(ItemActivity.class, bundle);
+//                return true;
+//            }
+//            p++;
+//        }
+//        return false;
+//    }
+
     public LatLng convertAddress(String address) {
         Geocoder geoCoder = new Geocoder(this);
         if (address != null && !address.isEmpty()) {
@@ -106,11 +120,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng location = convertAddress(item.getLocation());
             addMarker(location, item.getName());
         }
+//        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(Marker marker) {
+//                Bundle bundle = new Bundle();
+//                int p = 0;
+//                for (Item item : Model.getItemList()) {
+//                    if (item.getName() == marker.getTitle()) {
+//                        bundle.putInt("itemIndex", p);
+//                        goToPage(ItemActivity.class, bundle);
+//                        return true;
+//                    }
+//                    p++;
+//                }
+//                return false;
+//            }
+//        });
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     public void goToPage(Class next) {
         Intent intent = new Intent(this, next);
+        startActivity(intent);
+    }
+
+    public void goToPage(Class next, Bundle bundle) {
+        Intent intent = new Intent(this, next);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

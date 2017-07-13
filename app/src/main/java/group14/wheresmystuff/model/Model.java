@@ -12,6 +12,7 @@ public class Model extends Application {
 
     private static ArrayList<User> userList;
     private static ArrayList<Item> itemList;
+    private static User activeUser;
 
     @Override
     public void onCreate() {
@@ -24,6 +25,14 @@ public class Model extends Application {
         itemList = new ArrayList<Item>();
         //example item
         itemList.add(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0)));
+    }
+
+    public static void setActiveUser(User user) {
+        activeUser = user;
+    }
+
+    public static User getActiveUser() {
+        return activeUser;
     }
 
     public static void addUser(User user) {

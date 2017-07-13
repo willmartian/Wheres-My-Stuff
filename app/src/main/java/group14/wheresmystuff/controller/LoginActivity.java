@@ -158,22 +158,14 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
-//            try {
-//                // Simulate network access.
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
-
             for (User user : Model.getUserList()) {
                 //String[] pieces = ((String) credential).split(":");
                 if (user.getLoginID().equals(mUsername)) {
                     // Account exists, return true if the password matches.
+                    Model.setActiveUser(user);
                     return user.getPassword().equals(mPassword);
                 }
             }
-
             // TODO: register the new account here.
             return true;
         }
@@ -183,11 +175,7 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                //
                 goToPage(MainActivity.class);
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

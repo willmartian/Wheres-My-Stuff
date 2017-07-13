@@ -2,13 +2,7 @@ package group14.wheresmystuff.model;
 import android.location.Location;
 
 import java.util.Date;
-import android.location.Geocoder;
-import java.util.Locale;
-import java.util.List;
-import android.location.*;
-import android.content.Context;
-
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 /**
  * Created by will on 6/27/2017.
@@ -22,6 +16,7 @@ public class Item {
     private Category category;
     private ItemType itemType;
     private double reward;
+    private Marker marker;
 
     public enum Category {
         KEEPSAKE, HEIRLOOM, MISC;
@@ -60,6 +55,13 @@ public class Item {
         return itemType.toString() + ": \"" + name + "\" in " + location;
     }
 
+    private void setMarker(Marker marker) {
+        this.marker = marker;
+    }
+
+    private Marker getMarker() {
+        return marker;
+    }
     /**
      * getter for name
      * @return String gets and returns the name of the user
