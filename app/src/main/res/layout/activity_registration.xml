@@ -21,6 +21,14 @@
         android:hint="Username" />
 
     <EditText
+        android:id="@+id/emailText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/password_textBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

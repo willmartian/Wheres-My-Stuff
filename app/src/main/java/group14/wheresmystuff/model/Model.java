@@ -6,7 +6,13 @@ package group14.wheresmystuff.model;
 import android.app.Activity;
 import android.app.Application;
 
+import com.google.android.gms.maps.model.Marker;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Model extends Application {
 
@@ -97,5 +103,55 @@ public class Model extends Application {
             }
         }
         return filteredList;
+    }
+    private JSONObject convertUserToJson() {
+        JSONObject jsonObject = new JSONObject();
+        for (User user : userList) {
+            String loginID = user.getLoginID();
+            String password = user.getPassword();
+            String name = user.getName();
+            String email = user.getEmail();
+            boolean isLocked = user.getLocked();
+            try {
+                jsonObject.put("loginID", loginID);
+                jsonObject.put("password", password);
+                jsonObject.put("name", name);
+                jsonObject.put("email", email);
+                jsonObject.put("locked", isLocked);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return jsonObject;
+    }
+
+    private JSONObject convertItemToJson() {
+        JSONObject jsonObject = new JSONObject();
+        for (Item item : itemList) {
+            String name = item.getName();
+            String description = item.getDescription();
+            String location = item.getLocation();
+            User creator = item.getCreator();
+            Date date = item.getDate();
+            boolean open = item.isOpen();
+            Item.Category category = item.getCategory();
+            Item.ItemType itemType = item.getItemType();
+            double reward = item.getReward();
+            try {
+                jsonObject.put("name", name);
+                jsonObject.put("description", description);
+                jsonObject.put("location", location);
+                jsonObject.put("creator", creator);
+                jsonObject.put("date", date);
+                jsonObject.put("isOpen", open);
+                jsonObject.put("category", category);
+                jsonObject.put("itemType", itemType);
+                jsonObject.put("reward", reward);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return jsonObject;
     }
 }
