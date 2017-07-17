@@ -74,26 +74,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    public void addMarker(LatLng latlng, String title) {
-        map.addMarker(new MarkerOptions()
+    public Marker addMarker(LatLng latlng, String title) {
+        return map.addMarker(new MarkerOptions()
                 .position(latlng)
                 .title(title));
     }
-
-//    @Override
-//    public boolean onMarkerClick(Marker marker) {
-//        Bundle bundle = new Bundle();
-//        int p = 0;
-//        for (Item item : Model.getItemList()) {
-//            if (item.getName() == marker.getTitle()) {
-//                bundle.putInt("itemIndex", p);
-//                goToPage(ItemActivity.class, bundle);
-//                return true;
-//            }
-//            p++;
-//        }
-//        return false;
-//    }
 
     public LatLng convertAddress(String address) {
         Geocoder geoCoder = new Geocoder(this);
@@ -118,25 +103,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         for (Item item : Model.getItemList()) {
             LatLng location = convertAddress(item.getLocation());
-            addMarker(location, item.getName());
+            Marker itemMarker = addMarker(location, item.getName());
+            itemMarker.setTag(item);
         }
-//        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//            @Override
-//            public boolean onMarkerClick(Marker marker) {
-//                Bundle bundle = new Bundle();
-//                int p = 0;
-//                for (Item item : Model.getItemList()) {
-//                    if (item.getName() == marker.getTitle()) {
-//                        bundle.putInt("itemIndex", p);
-//                        goToPage(ItemActivity.class, bundle);
-//                        return true;
-//                    }
-//                    p++;
-//                }
-//                return false;
-//            }
-//        });
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Bundle bundle = new Bundle();
+                int p = 0;
+                for (Item item : Model.getItemList()) {
+                    if (item.equals(marker.getTag())) {
+                        bundle.putInt("itemIndex", p);
+                        goToPage(ItemActivity.class, bundle);
+                    }
+                    p++;
+                }
+            }
+        });
+
     }
 
     public void goToPage(Class next) {
