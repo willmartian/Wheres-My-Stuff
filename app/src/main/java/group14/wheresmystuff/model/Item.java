@@ -16,7 +16,6 @@ public class Item {
     private Category category;
     private ItemType itemType;
     private double reward;
-    private Marker marker;
 
     public enum Category {
         KEEPSAKE, HEIRLOOM, MISC;
@@ -55,13 +54,6 @@ public class Item {
         return itemType.toString() + ": \"" + name + "\" in " + location;
     }
 
-    private void setMarker(Marker marker) {
-        this.marker = marker;
-    }
-
-    private Marker getMarker() {
-        return marker;
-    }
     /**
      * getter for name
      * @return String gets and returns the name of the user
