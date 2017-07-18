@@ -8,6 +8,8 @@ import com.google.android.gms.maps.model.Marker;
  * Created by will on 6/27/2017.
  */
 
+
+
 public class Item {
     private String name, description, location;
     private User creator;
@@ -49,6 +51,29 @@ public class Item {
         this.open = true;
         this.date = new Date();
     }
+
+    @Override
+    public boolean equals(Object object) {
+
+        if (object.getClass() != this.getClass()) {
+            return false;
+        }
+        return this.toString() == object.toString();
+//        Item item = (Item) object;
+//        if (itemType != item.getItemType()
+//                || name != item.getName()
+//                || description != item.getDescription()
+//                || !location.equals(item.getLocation())
+//                || category != item.getCategory()
+//                || creator != item.getCreator()
+//                || open != item.open
+//                || !date.equals(item.getDate())
+//                ) {
+//            return false;
+//        }
+//        return true;
+    }
+
     @Override
     public String toString() {
         return itemType.toString() + ": \"" + name + "\" in " + location;

@@ -112,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Bundle bundle = new Bundle();
                 int p = 0;
                 for (Item item : Model.getItemList()) {
-                    if (item.equals(marker.getTag())) {
+//                    if (item.equals(marker.getTag())) {
+                    if (marker.getTag().toString().equals(item.toString())) {
                         bundle.putInt("itemIndex", p);
                         goToPage(ItemActivity.class, bundle);
                     }

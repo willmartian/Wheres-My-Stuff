@@ -36,7 +36,7 @@ public class DisplayItemsActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.listViewMain);
         //filtering the list view to only show results with the word "cat" would look like:
         //  populateListView(Model.getItemList("cat"));
-        populateListView(Model.getItemList(Item.ItemType.LOST));
+//        populateListView(Model.getItemList(Item.ItemType.LOST));
         populateListView(); //makes and implicit call to: populateListView(Model.getItemList());
 
         list.setOnItemClickListener(new OnItemClickListener() {
