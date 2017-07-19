@@ -33,6 +33,7 @@ public class DisplayItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_displayitems);
+        getSupportActionBar().setTitle("Where's My Stuff? - " + Model.getActiveUser().getName());
         list = (ListView) findViewById(R.id.listViewMain);
         //filtering the list view to only show results with the word "cat" would look like:
         //  populateListView(Model.getItemList("cat"));

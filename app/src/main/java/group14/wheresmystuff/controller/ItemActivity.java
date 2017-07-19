@@ -1,18 +1,22 @@
 package group14.wheresmystuff.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Button;
 import group14.wheresmystuff.model.Item;
-
 import group14.wheresmystuff.R;
 import group14.wheresmystuff.model.Model;
+import group14.wheresmystuff.model.Admin;
 
 /**
  * Created by willi on 7/10/2017.
  */
 
 public class ItemActivity extends AppCompatActivity {
+
     private TextView itemName;
     private TextView itemDescription;
     private TextView itemLocation;
@@ -21,6 +25,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView itemType;
     private TextView itemCategory;
     private TextView itemDate;
+    private Button itemButton;
 
     private Bundle itemBundle;
     private Item item;
@@ -28,6 +33,7 @@ public class ItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
+        getSupportActionBar().setTitle("Where's My Stuff? - " + Model.getActiveUser().getName());
         itemName = (TextView) findViewById(R.id.itemNameView);
         itemDescription = (TextView) findViewById(R.id.itemDescriptionView);
         itemLocation = (TextView) findViewById(R.id.itemLocationView);
@@ -38,7 +44,7 @@ public class ItemActivity extends AppCompatActivity {
         itemDate = (TextView) findViewById(R.id.itemDateView);
 
 
-        Bundle itemBundle = getIntent().getExtras();
+        itemBundle = getIntent().getExtras();
         item = Model.getItemList().get(itemBundle.getInt("itemIndex"));
         itemName.setText(item.getName());
         itemDescription.setText(item.getDescription());
@@ -48,6 +54,25 @@ public class ItemActivity extends AppCompatActivity {
         itemType.setText(item.getItemType().toString());
         itemCategory.setText(item.getCategory().toString());
         itemDate.setText(item.getDate().toString());
-//        getItemAtPosition(position)
+
+        itemButton = (Button) findViewById(R.id.editButton);
+        if (Model.getActiveUser().getLoginID() == item.getCreator().getLoginID()
+                || Model.getActiveUser().getClass() == Admin.class) {
+            itemButton.setVisibility(View.VISIBLE);
+        } else {
+            itemButton.setVisibility(View.INVISIBLE);
+        }
+        itemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(SubmitItemActivity.class, itemBundle);
+            }
+        });
+    }
+
+    public void goToPage(Class next, Bundle bundle) {
+        Intent intent = new Intent(this, next);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

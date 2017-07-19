@@ -31,6 +31,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        getSupportActionBar().setTitle("Where's My Stuff? - Register");
         //
         mNameView = (EditText) findViewById(R.id.name_textBox);
         mPasswordView = (EditText) findViewById(R.id.password_textBox);

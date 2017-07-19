@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,14 +37,19 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
+    private TextView forgotPassLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().setTitle("Where's My Stuff? - Login");
         setContentView(R.layout.activity_login);
+
+
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
+        forgotPassLink = (TextView) findViewById(R.id.forgotPassLink);
+//        forgotPassLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -140,6 +146,9 @@ public class LoginActivity extends AppCompatActivity {
 //        return password.length() >= 4;
 //    }
 
+    public void onForgetClick(View view) {
+        goToPage(RegistrationActivity.class);
+    }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate

@@ -7,13 +7,8 @@ package group14.wheresmystuff.model;
 import android.app.Application;
 import android.content.Context;
 import android.preference.PreferenceManager;
-import android.content.SharedPreferences;
 import com.google.gson.*;
-import org.json.JSONException;
-import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Date;
-import android.util.Log;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 
@@ -28,7 +23,7 @@ public class Model extends Application {
     @Override
     public void onCreate() {
         context = getApplicationContext();
-//        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
+        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
         super.onCreate();
         loadUserList();
         loadItemList();
@@ -37,6 +32,9 @@ public class Model extends Application {
 
     }
 
+    /**
+     * Clears the saved user and item data in SharedPreferences
+     */
     private void clearSaveData() {
         userList = new ArrayList<User>();
         itemList = new ArrayList<Item>();
@@ -52,6 +50,10 @@ public class Model extends Application {
         return activeUser;
     }
 
+    /**
+     * adds the given user if they are not already present
+     * @param user the user to add
+     */
     public static void addUser(User user) {
         if (!userList.contains(user)) {
             userList.add(user);
@@ -59,6 +61,10 @@ public class Model extends Application {
         }
     }
 
+    /**
+     * adds the given item if it is not already present
+     * @param item the item to add
+     */
     public static void addItem(Item item) {
         for (Item itemB : itemList) {
             if (item.toString() == itemB.toString()) {
@@ -127,6 +133,9 @@ public class Model extends Application {
         return filteredList;
     }
 
+    /**
+     * loads the user list from sava data
+     */
     private static void loadUserList() {
         try {
             Type listType = new TypeToken<ArrayList<User>>() {}.getType();
@@ -140,6 +149,9 @@ public class Model extends Application {
         }
     }
 
+    /**
+     * loads the item list from save data
+     */
     private static void loadItemList() {
         try {
             Type listType = new TypeToken<ArrayList<Item>>() {}.getType();
@@ -152,12 +164,24 @@ public class Model extends Application {
         }
     }
 
+    /**
+     * converts json to object
+     * @param title the title of the json in the save data
+     * @param type the type to convert to
+     * @return the converted object
+     */
     private static Object jsonToObj(String title, Type type) {
         String jsonString = PreferenceManager.getDefaultSharedPreferences(context).getString(title, "");
         Gson gson = new Gson();
         return gson.fromJson(jsonString, type);
     }
 
+    /**
+     * converts object to json
+     * @param title the title of the json in the save data
+     * @param obj the object to convert
+     * @return string representation of the json
+     */
     private static String objToJson(String title, Object obj) {
         Gson gson = new Gson();
         String json = gson.toJson(obj);
@@ -165,55 +189,4 @@ public class Model extends Application {
                 .putString(title, json).apply();
         return json;
     }
-
-//    private JSONObject convertUserToJson() {
-//        JSONObject jsonObject = new JSONObject();
-//        for (User user : userList) {
-//            String loginID = user.getLoginID();
-//            String password = user.getPassword();
-//            String name = user.getName();
-//            String email = user.getEmail();
-//            boolean isLocked = user.getLocked();
-//            try {
-//                jsonObject.put("loginID", loginID);
-//                jsonObject.put("password", password);
-//                jsonObject.put("name", name);
-//                jsonObject.put("email", email);
-//                jsonObject.put("locked", isLocked);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return jsonObject;
-//    }
-
-//    private JSONObject convertItemToJson() {
-//        JSONObject jsonObject = new JSONObject();
-//        for (Item item : itemList) {
-//            String name = item.getName();
-//            String description = item.getDescription();
-//            String location = item.getLocation();
-//            User creator = item.getCreator();
-//            Date date = item.getDate();
-//            boolean open = item.isOpen();
-//            Item.Category category = item.getCategory();
-//            Item.ItemType itemType = item.getItemType();
-//            double reward = item.getReward();
-//            try {
-//                jsonObject.put("name", name);
-//                jsonObject.put("description", description);
-//                jsonObject.put("location", location);
-//                jsonObject.put("creator", creator);
-//                jsonObject.put("date", date);
-//                jsonObject.put("isOpen", open);
-//                jsonObject.put("category", category);
-//                jsonObject.put("itemType", itemType);
-//                jsonObject.put("reward", reward);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//        return jsonObject;
-//    }
 }
