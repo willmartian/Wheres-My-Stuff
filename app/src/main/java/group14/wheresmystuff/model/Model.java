@@ -23,12 +23,12 @@ public class Model extends Application {
     @Override
     public void onCreate() {
         context = getApplicationContext();
-        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
+//        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
         super.onCreate();
         loadUserList();
         loadItemList();
         addUser(new User("Default User", "user", "pass", "user@example.com"));
-        addItem(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0)));
+        addItem(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0), null));
 
     }
 

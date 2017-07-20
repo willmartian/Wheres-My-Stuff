@@ -1,4 +1,5 @@
 package group14.wheresmystuff.model;
+import android.graphics.Bitmap;
 import android.location.Location;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ public class Item {
     private Category category;
     private ItemType itemType;
     private double reward;
+    private Bitmap icon;
 
     public enum Category {
         KEEPSAKE, HEIRLOOM, MISC;
@@ -40,7 +42,7 @@ public class Item {
     }
 
     public Item(ItemType itemType, String name, String description,
-                String location, Category category, double reward, User creator) {
+                String location, Category category, double reward, User creator, Bitmap icon) {
         this.itemType = itemType;
         this.name = name;
         this.description = description;
@@ -50,6 +52,7 @@ public class Item {
         this.creator = creator;
         this.open = true;
         this.date = new Date();
+        this.icon = icon;
     }
 
     @Override
@@ -79,6 +82,13 @@ public class Item {
         return itemType.toString() + ": \"" + name + "\" in " + location;
     }
 
+    public Bitmap getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Bitmap icon) {
+        this.icon = icon;
+    }
     /**
      * getter for name
      * @return String gets and returns the name of the user

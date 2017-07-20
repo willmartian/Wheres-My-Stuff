@@ -128,7 +128,8 @@
         android:layout_marginTop="11dp"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView">
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignEnd="@+id/addItemButton">
 
 
         <RadioButton
@@ -190,5 +191,15 @@
         android:layout_alignBottom="@+id/locationTextBox"
         android:layout_toEndOf="@+id/locationTextBox"
         android:text="Get My Location" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radioGroup2"
+        android:layout_alignEnd="@+id/cancelButton"
+        android:layout_marginEnd="26dp"
+        android:onClick="onImageClick"
+        android:text="Add IMage" />
 
 </RelativeLayout>

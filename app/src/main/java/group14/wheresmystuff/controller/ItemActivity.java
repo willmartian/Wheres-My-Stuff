@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 import group14.wheresmystuff.model.Item;
@@ -26,6 +27,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView itemCategory;
     private TextView itemDate;
     private Button itemButton;
+    private ImageView itemIcon;
 
     private Bundle itemBundle;
     private Item item;
@@ -42,6 +44,7 @@ public class ItemActivity extends AppCompatActivity {
         itemType = (TextView) findViewById(R.id.itemTypeView);
         itemCategory = (TextView) findViewById(R.id.itemCategoryView);
         itemDate = (TextView) findViewById(R.id.itemDateView);
+        itemIcon = (ImageView) findViewById(R.id.itemIcon);
 
 
         itemBundle = getIntent().getExtras();
@@ -54,6 +57,9 @@ public class ItemActivity extends AppCompatActivity {
         itemType.setText(item.getItemType().toString());
         itemCategory.setText(item.getCategory().toString());
         itemDate.setText(item.getDate().toString());
+        if (item.getIcon() != null) {
+            itemIcon.setImageBitmap(item.getIcon());
+        }
 
         itemButton = (Button) findViewById(R.id.editButton);
         if (Model.getActiveUser().getLoginID() == item.getCreator().getLoginID()

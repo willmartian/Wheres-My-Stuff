@@ -2,6 +2,9 @@ package group14.wheresmystuff.controller;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +27,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import android.location.Location;
 import android.content.Context;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import group14.wheresmystuff.R;
 import group14.wheresmystuff.model.Item;
 import group14.wheresmystuff.model.Item.*;
@@ -35,11 +41,13 @@ import group14.wheresmystuff.model.Model;
  */
 
 public class SubmitItemActivity extends AppCompatActivity {
+    public static final int GET_FROM_GALLERY = 13;
     private FusedLocationProviderClient fusedLocationClient;
     String name;
     String description;
     String reward;
     String location;
+    Bitmap icon;
     Category itemCategory;
     RadioButton foundButton;
     RadioButton lostButton;
@@ -53,7 +61,7 @@ public class SubmitItemActivity extends AppCompatActivity {
     String[] categoryArray;
     Spinner categorySpinner;
 
-    Boolean edit;
+    Boolean edit = false;
     Item item;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,9 +138,9 @@ public class SubmitItemActivity extends AppCompatActivity {
 
         });
 
-        if (edit) {
-            fillInfo();
-        }
+//        if (edit) {
+//            fillInfo();
+//        }
 
         Button addItem = (Button) findViewById(R.id.addItemButton);
         addItem.setOnClickListener(new OnClickListener() {
@@ -164,12 +172,38 @@ public class SubmitItemActivity extends AppCompatActivity {
                     if (edit) {
                         Model.getItemList().remove(item);
                     }
-                    Model.addItem(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getActiveUser()));
+                    Model.addItem(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getActiveUser(), icon));
                     goToPage(DisplayItemsActivity.class);
                 }
             }
 
         });
+    }
+
+
+    public void onImageClick(View view) {
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        //Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+//            Bitmap bitmap = null;
+            try {
+                icon = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

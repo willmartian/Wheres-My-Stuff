@@ -1,5 +1,6 @@
 package group14.wheresmystuff.controller;
 
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.content.Intent;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -75,10 +78,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    public Marker addMarker(LatLng latlng, String title) {
-        return map.addMarker(new MarkerOptions()
-                .position(latlng)
-                .title(title));
+    public Marker addMarker(LatLng latlng, String title, Bitmap icon) {
+
+        MarkerOptions newMarker = new MarkerOptions();
+        newMarker.position(latlng).title(title);
+        return map.addMarker(newMarker);
     }
 
     public LatLng convertAddress(String address) {
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         for (Item item : Model.getItemList()) {
             LatLng location = convertAddress(item.getLocation());
-            Marker itemMarker = addMarker(location, item.getName());
+            Marker itemMarker = addMarker(location, item.getName(), item.getIcon());
             itemMarker.setTag(item);
         }
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
