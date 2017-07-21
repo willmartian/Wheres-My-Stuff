@@ -138,9 +138,9 @@ public class SubmitItemActivity extends AppCompatActivity {
 
         });
 
-//        if (edit) {
-//            fillInfo();
-//        }
+        if (edit) {
+            fillInfo();
+        }
 
         Button addItem = (Button) findViewById(R.id.addItemButton);
         addItem.setOnClickListener(new OnClickListener() {
@@ -170,8 +170,9 @@ public class SubmitItemActivity extends AppCompatActivity {
                 }
                 if (checkComplete()) {
                     if (edit) {
-                        Model.getItemList().remove(item);
+                        Model.removeItem(item);
                     }
+
                     Model.addItem(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getActiveUser(), icon));
                     goToPage(DisplayItemsActivity.class);
                 }
@@ -230,6 +231,7 @@ public class SubmitItemActivity extends AppCompatActivity {
         descriptionBox.setText(item.getDescription());
         rewardBox.setText(new Double(item.getReward()).toString());
         locationBox.setText(item.getLocation());
+        icon = item.getIcon();
     }
 
     public void goToPage(Class next) {

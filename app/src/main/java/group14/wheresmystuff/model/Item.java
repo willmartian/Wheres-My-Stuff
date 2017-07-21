@@ -1,7 +1,10 @@
 package group14.wheresmystuff.model;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import com.google.android.gms.maps.model.Marker;
 
@@ -19,7 +22,7 @@ public class Item {
     private Category category;
     private ItemType itemType;
     private double reward;
-    private Bitmap icon;
+    private String iconString;
 
     public enum Category {
         KEEPSAKE, HEIRLOOM, MISC;
@@ -52,7 +55,7 @@ public class Item {
         this.creator = creator;
         this.open = true;
         this.date = new Date();
-        this.icon = icon;
+        setIcon(icon);
     }
 
     @Override
@@ -62,19 +65,6 @@ public class Item {
             return false;
         }
         return this.toString() == object.toString();
-//        Item item = (Item) object;
-//        if (itemType != item.getItemType()
-//                || name != item.getName()
-//                || description != item.getDescription()
-//                || !location.equals(item.getLocation())
-//                || category != item.getCategory()
-//                || creator != item.getCreator()
-//                || open != item.open
-//                || !date.equals(item.getDate())
-//                ) {
-//            return false;
-//        }
-//        return true;
     }
 
     @Override
@@ -83,11 +73,25 @@ public class Item {
     }
 
     public Bitmap getIcon() {
-        return icon;
+        if( !iconString.equalsIgnoreCase("") ){
+            byte[] b = Base64.decode(iconString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+            return bitmap;
+        }
+        return null;
     }
 
     public void setIcon(Bitmap icon) {
-        this.icon = icon;
+        if (icon == null) {
+            iconString = "";
+            return;
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        icon.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+
+        iconString = Base64.encodeToString(b, Base64.DEFAULT);
     }
     /**
      * getter for name

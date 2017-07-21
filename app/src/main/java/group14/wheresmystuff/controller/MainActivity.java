@@ -1,12 +1,16 @@
 package group14.wheresmystuff.controller;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,8 +18,7 @@ import android.content.Intent;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -58,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onClick(View v) {
-
                 goToPage(SubmitItemActivity.class);
 
             }
@@ -79,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public Marker addMarker(LatLng latlng, String title, Bitmap icon) {
-
         MarkerOptions newMarker = new MarkerOptions();
         newMarker.position(latlng).title(title);
         return map.addMarker(newMarker);
@@ -105,13 +106,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-
+        int i = 0;
         for (Item item : Model.getItemList()) {
             LatLng location = convertAddress(item.getLocation());
             Marker itemMarker = addMarker(location, item.getName(), item.getIcon());
             itemMarker.setTag(item);
+            if (getIntent().getExtras() != null && i == getIntent().getExtras().getInt("ItemIndex")) {
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
+            }
+            i++;
         }
-        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Bundle bundle = new Bundle();
@@ -126,7 +131,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
+    }
 
+    public void mynotify(String title, String content) {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.notifyicon)
+                        .setContentTitle(title)
+                        .setContentText(content);
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final int NOTIFICATION_ID = 0;
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
     public void goToPage(Class next) {

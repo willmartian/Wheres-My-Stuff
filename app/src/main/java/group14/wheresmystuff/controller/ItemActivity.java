@@ -27,6 +27,8 @@ public class ItemActivity extends AppCompatActivity {
     private TextView itemCategory;
     private TextView itemDate;
     private Button itemButton;
+    private Button removeButton;
+    private Button viewButton;
     private ImageView itemIcon;
 
     private Bundle itemBundle;
@@ -62,7 +64,7 @@ public class ItemActivity extends AppCompatActivity {
         }
 
         itemButton = (Button) findViewById(R.id.editButton);
-        if (Model.getActiveUser().getLoginID() == item.getCreator().getLoginID()
+        if (Model.getActiveUser().getLoginID().equals(item.getCreator().getLoginID())
                 || Model.getActiveUser().getClass() == Admin.class) {
             itemButton.setVisibility(View.VISIBLE);
         } else {
@@ -74,11 +76,33 @@ public class ItemActivity extends AppCompatActivity {
                 goToPage(SubmitItemActivity.class, itemBundle);
             }
         });
+
+        removeButton = (Button) findViewById(R.id.removeButton);
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Model.removeItem(item);
+                goToPage(MainActivity.class);
+            }
+        });
+
+        viewButton = (Button) findViewById(R.id.viewButton);
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPage(MainActivity.class, itemBundle);
+            }
+        });
     }
 
     public void goToPage(Class next, Bundle bundle) {
         Intent intent = new Intent(this, next);
         intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void goToPage(Class next) {
+        Intent intent = new Intent(this, next);
         startActivity(intent);
     }
 }

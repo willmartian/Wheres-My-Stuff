@@ -16,6 +16,14 @@ public class User {
         this.isLocked = false;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() != User.class) {
+            return false;
+        }
+        return ((User) obj).getLoginID() == this.loginID;
+    }
+
     /**
      * getter for login ID
      * @return String gets and returns the user's login ID

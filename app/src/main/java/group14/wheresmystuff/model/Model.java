@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 
+import group14.wheresmystuff.controller.MainActivity;
+
 
 public class Model extends Application {
 
@@ -19,17 +21,20 @@ public class Model extends Application {
     private static ArrayList<Item> itemList;
     private static User activeUser;
     private static Context context;
+    private static boolean firstLaunch = true;
 
     @Override
     public void onCreate() {
         context = getApplicationContext();
-//        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
+        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
         super.onCreate();
         loadUserList();
         loadItemList();
-        addUser(new User("Default User", "user", "pass", "user@example.com"));
-        addItem(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0), null));
-
+        if (firstLaunch) {
+            addUser(new User("Default User", "user", "pass", "user@example.com"));
+            addItem(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0), null));
+        }
+        firstLaunch = false;
     }
 
     /**
@@ -73,6 +78,14 @@ public class Model extends Application {
         }
         itemList.add(item);
         objToJson("items", itemList);
+    }
+
+    public static boolean removeItem(Item item) {
+        if (itemList.remove(item)) {
+            objToJson("items", itemList);
+            return true;
+        }
+        return false;
     }
 
     /**
