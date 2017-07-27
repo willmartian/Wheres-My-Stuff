@@ -1,6 +1,6 @@
 <html>
     <head>
-                              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                              <script src="jquery-3.2.1.js"></script> 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
         </head>
@@ -24,21 +24,17 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 <script>
 function myMap() {
 geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(33.7489954, -84.3879824);
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
 var mapOptions = {
     center: latlng,
-    zoom: 1,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    zoom: 10,
+    mapTypeId: google.maps.MapTypeId.HYBRID
 }
 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    codeAddress(map);
+    codeAddress();
 }
-function codeAddress(aMap) {
-    
-    for (var i = 1; i < localStorage.itemCount; i ++) {
-      var obj = JSON.parse(localStorage.getItem('Item' + i));
-      var objLocation = obj.Location;
-    var address = objLocation
+      function codeAddress() {
+    var address = "Atlanta";
     geocoder.geocode({
         'address': address
     }, function (results, status) {
@@ -46,17 +42,17 @@ function codeAddress(aMap) {
                          var latitude = results[0].geometry.location.lat();
 
              var longitude = results[0].geometry.location.lng();
-             var pos = new google.maps.LatLng(latitude,longitude)
-            // map.setCenter(results[0].geometry.location.lat(),results[0].geometry.location.lng() );
-             marker = new google.maps.Marker({
-                position: pos,
-                map : aMap
-            }); 
-        
-            
+
+             alert(latitude);
+
+             alert(longitude);
+            map.setCenter(results[0].geometry.location.lat(),results[0].geometry.location.lng() );
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
         }
     });
-}
 }
 </script>
 
