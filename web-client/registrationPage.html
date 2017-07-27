@@ -1,0 +1,44 @@
+<html>
+  <head>
+                      <script src="jquery-3.2.1.js"></script> 
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+    </head>
+    <body>
+      <div class="container">
+  <h1>Wheres My Stuff</h1>
+  <form action="/action_page.php">
+  Name: <input type="text" name="name"><br>
+  Username: <input type="text" id = "userName" name="userName"><br>
+  Password: <input type="text" id = "passWord" name="passWord"><br>
+<div class="radio">
+  <label><input type="radio" name="admin">Admin</label>
+</div>
+<div class="radio">
+  <label><input type="radio" name="admin">User</label>
+</div>
+  <!-- <input type="Login" value="Submit"> -->
+  <button id= "registerButton" type="button">Register</button>
+   <button id= "cancelButton" type="button">Cancel</button>
+</form>
+</div>
+      </body>
+    <script type = "text/javascript">
+      document.getElementById("cancelButton").onclick = function () {
+        location.href = "loginPage.html";
+      };
+      document.getElementById("registerButton").onclick = function () {
+        var userDoesNotExist = true;
+      $.each(localStorage, function(key, value){
+        if (key = document.getElementById("userName").value) {
+          alert("Sorry, that username is already in use");
+          userDoesNotExist = false;
+        }
+      });
+      if (userDoesNotExist == true) {
+      localStorage.setItem(document.getElementById("userName").value , document.getElementById("passWord").value );
+      location.href = "loginPage.html";
+      }
+      };
+  </script>
+<html>

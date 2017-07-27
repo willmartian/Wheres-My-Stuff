@@ -1,0 +1,71 @@
+<html>
+    <head>
+                              <script src="jquery-3.2.1.js"></script> 
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+        </head>
+    <body>
+         <div class="container">
+              <button id= "addItem" type="button">Add Item</button>
+  <button id= "viewItems" type="button">View Items</button>
+             </div>
+     <div class="container" align ="center" >
+    <button id= "logout" type="button">Logout</button>
+    <h1>Item Locations</h1>
+
+<div id="map" style="width:400px;height:400px;background:yellow"></div>
+
+<!--
+To use this code on your website, get a free API key from Google.
+Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+-->
+    </div>
+        </body>
+<script>
+function myMap() {
+geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+var mapOptions = {
+    center: latlng,
+    zoom: 10,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    codeAddress();
+}
+      function codeAddress() {
+    var address = "Atlanta";
+    geocoder.geocode({
+        'address': address
+    }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+                         var latitude = results[0].geometry.location.lat();
+
+             var longitude = results[0].geometry.location.lng();
+
+             alert(latitude);
+
+             alert(longitude);
+            map.setCenter(results[0].geometry.location.lat(),results[0].geometry.location.lng() );
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        }
+    });
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMOiIW7hB5_lxawQf-PL5dRYOInsUYy2A&callback=myMap"></script>
+<script type = "text/javascript">
+      document.getElementById("logout").onclick = function () {
+        location.href = "loginPage.html";
+      };
+       document.getElementById("addItem").onclick = function () {
+        location.href = "addItemPage.html";
+      };
+       document.getElementById("viewItems").onclick = function () {
+        location.href = "viewItemPage.html";
+      };
+      </script>
+<html>

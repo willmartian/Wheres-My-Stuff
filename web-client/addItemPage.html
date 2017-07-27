@@ -1,0 +1,59 @@
+ <html>
+    <head>
+                              <script src="jquery-3.2.1.js"></script> 
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+        </head>
+    <body>
+         <div class="container">
+             <p> Type: </p>
+             <div class="radio">
+                <label><input type="radio" id = "Found" name="itemType">Found</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id = "Lost" name="itemType">Lost</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id = "Donate" name="itemType">Donate</label>
+            </div>
+              Item Name: <input type="text" id="itemName" name="itemName"><br>
+              Description: <input type="text" id="itemDescription" name="itemDescription"><br>
+              Category: <br> 
+              <select id = "category">
+  <option value="Keepsake">Keepsake</option>
+  <option value="Heirloom">Heirloom</option>
+  <option value="Misc">Misc</option>
+</select> <br>
+
+              Location: <input type="text" id="itemLocation" name="itemLocation"><br>
+              Reward: <input type="text" id="reward" name="reward"><br>
+              </div>
+              <button id= "addButton" type="button">Add Item</button>
+  <button id= "cancelButton" type="button">Cancel</button>
+<script type = "text/javascript">
+    var type = "";
+      document.getElementById("cancelButton").onclick = function () {
+        location.href = "mainPage.html";
+      };
+        document.getElementById("addButton").onclick = function () {
+                            if(typeof (localStorage.itemCount) == "undefined") {
+                    localStorage.itemCount = 1;
+                }
+            if(document.getElementById('Found').checked) {        
+                type = "Found";
+        } else if(document.getElementById('Lost').checked) {
+            type = "Lost";
+        }
+        else {
+            type = "Donate"
+        }
+        var obj = {"Type": type, "Name": document.getElementById("itemName").value, "Description": document.getElementById("itemDescription").value 
+        , "Category": document.getElementById("category").value, "Location": document.getElementById("itemLocation").value, "Reward": document.getElementById("reward").value};
+        localStorage.setItem('Item' + localStorage.itemCount, JSON.stringify(obj));
+        localStorage.itemCount = Number(localStorage.itemCount)+1;
+
+        location.href = "viewItemPage.html";
+      };
+      </script>
+        </body>
+<html> 

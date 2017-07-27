@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="main" class="ui-content">
+              <button id= "backButton" type="button">Back</button>
+    <h2>Item List:</h2>
+    <input type="text" id = "searchBar" name="searchBar"><br>
+                  <button id= "searchButton" type="button">Search</button>
+    <ol data-role="listview" id ="itemListView">
+    </ol>
+  </div>
+</div> 
+
+</body>
+<script type = "text/javascript">
+      for (var i = 1; i < localStorage.itemCount; i ++) {
+      var obj = JSON.parse(localStorage.getItem('Item' + i));
+      var objType = obj.Type;
+      var objName = obj.Name;
+
+      $('#itemListView').append('<li class="ui-li-static ui-body-inherit ui-btn" id = "item' + i +  '"> ' + objType + ": " + objName + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Description:" +   obj.Description + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Category" + obj.Category + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Location:" + obj.Location + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Reward:" + obj.Reward + '</li>');
+      }
+      document.getElementById("backButton").onclick = function() {
+              location.href = "mainPage.html";
+      }
+      document.getElementById("searchButton").onclick = function() {
+      var searchInput = document.getElementById("searchBar").value;
+      if (searchInput != "") {
+        document.getElementById("itemListView").innerHTML = "";
+      for (var i = 1; i < localStorage.itemCount; i ++) {
+      var obj = JSON.parse(localStorage.getItem('Item' + i));
+      var objType = obj.Type;
+      var objName = obj.Name;
+      if (searchInput.toUpperCase() == objType.toUpperCase() || searchInput.toUpperCase() == objName.toUpperCase()) {
+      $('#itemListView').append('<li class="ui-li-static ui-body-inherit ui-btn" id = "item' + i +  '"> ' + objType + ": " + objName + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Description:" +   obj.Description + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Category" + obj.Category + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Location:" + obj.Location + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Reward:" + obj.Reward + '</li>');
+      // $('#movie-data').append('<li>Title: '+row.original_title+'</li>');
+      }
+      }
+      }
+      else {
+        document.getElementById("itemListView").innerHTML = "";
+              for (var i = 1; i < localStorage.itemCount; i ++) {
+      var obj = JSON.parse(localStorage.getItem('Item' + i));
+      var objType = obj.Type;
+      var objName = obj.Name;
+      $('#itemListView').append('<li class="ui-li-static ui-body-inherit ui-btn" id = "item' + i +  '"> ' + objType + ": " + objName + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Description:" +   obj.Description + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Category" + obj.Category + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Location:" + obj.Location + "<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Reward:" + obj.Reward + '</li>');
+      }
+      }
+      }
+            document.getElementById("item1").onclick = function() {
+           location.href = "mainPage.html";
+      } ;
+</script>
+</html>

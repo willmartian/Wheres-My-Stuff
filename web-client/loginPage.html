@@ -1,0 +1,37 @@
+<html>
+  <head>
+            <script src="jquery-3.2.1.js"></script> 
+    </head>
+    <body>
+      <div class="container">
+  <h1>Wheres My Stuff</h1>
+  <form action="/action_page.php">
+  Username: <input type="text" id="userName" name="userName"><br>
+  Password: <input type="text" id="passWord" name="passWord"><br>
+  <!-- <input type="Login" value="Submit"> -->
+  <button id= "loginButton" type="button">Login</button>
+  <button id= "registerButton" type="button">Register</button>
+</form>
+</div>
+      </body>
+    <script type = "text/javascript">
+$(document).ready(function(){
+      document.getElementById("registerButton").onclick = function () {
+        location.href = "registrationPage.html";
+      };
+    document.getElementById("loginButton").onclick = function () {
+      var displayMessage = true;
+      $.each(localStorage, function(key, value){
+      if (document.getElementById("userName").value == key && document.getElementById("passWord").value == value) {
+        displayMessage = false;
+            location.href = "mainPage.html"
+          }
+      });
+      if (displayMessage == true) {
+              alert("Incorrect username or password.");
+      }
+      };
+})
+  </script>
+<html>
+
