@@ -1,6 +1,7 @@
 <html>
     <head>
                               <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                              <script src = "https://maps.googleapis.com/maps/api/js"></script>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
         </head>
@@ -15,6 +16,9 @@
 
 <div id="map" style="width:400px;height:400px;background:yellow"></div>
 
+<div id ="description">
+    </div>
+
 <!--
 To use this code on your website, get a free API key from Google.
 Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
@@ -22,6 +26,7 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
     </div>
         </body>
 <script>
+        var markers = new Array();
 function myMap() {
 geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(33.7489954, -84.3879824);
@@ -47,15 +52,24 @@ function codeAddress(aMap) {
 
              var longitude = results[0].geometry.location.lng();
              var pos = new google.maps.LatLng(latitude,longitude)
-            // map.setCenter(results[0].geometry.location.lat(),results[0].geometry.location.lng() );
              marker = new google.maps.Marker({
                 position: pos,
-                map : aMap
+                map : aMap,
+                title : "hi"
             }); 
+            markers.push(marker);
+            
+        // marker.addListener('click', function() {
+        //     document.getElementById("description").innerHTML = obj.Name;
+        // });
         
             
         }
     });
+}   for (var i = 0; i < markers.length; i ++) {
+      marker.addListener('click', function() {
+            document.getElementById("description").innerHTML = obj.Name;
+        });
 }
 }
 </script>

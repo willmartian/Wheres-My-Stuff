@@ -5,21 +5,23 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
     </head>
     <body>
-      <div class="container">
-  <h1>Wheres My Stuff</h1>
+      <div align= "center" class="container">
+    <img src="Image.png" alt="WheresMyStuffImage" style="width:240px;height:228px;"> <br> <br>
   <form action="/action_page.php">
-  Name: <input type="text" name="name"><br>
-  Username: <input type="text" id = "userName" name="userName"><br>
-  Password: <input type="text" id = "passWord" name="passWord"><br>
-<div class="radio">
-  <label><input type="radio" name="admin">Admin</label>
+  First Name <input type="text" name="name" required = "required" ><br>
+  Username : <input type="text" id = "userName" name="userName" required><br>
+  Password : <input type="text" id = "passWord" name="passWord" required><br>
+  <div style = "width:70px">
+<div class="radio" align = "left">
+  <label><input type="radio" name="admin" checked = "checked" >Admin</label>
 </div>
-<div class="radio">
+<div class="radio" align = "left">
   <label><input type="radio" name="admin">User</label>
 </div>
+</div>
   <!-- <input type="Login" value="Submit"> -->
-  <button id= "registerButton" type="button">Register</button>
-   <button id= "cancelButton" type="button">Cancel</button>
+  <button id= "registerButton" type="button" style="height:20px;width:240px; background-color: #4CAF50;      border: none;">Register</button> <br> <br>
+   <button id= "cancelButton" type="button" style="height:20px;width:120px; background-color: lightblue; border: none;">Cancel</button>
 </form>
 </div>
       </body>
