@@ -1,71 +1,72 @@
 <html>
     <head>
-                  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                              <script src = "https://maps.googleapis.com/maps/api/js"></script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMOiIW7hB5_lxawQf-PL5dRYOInsUYy2A&callback=myMap"></script>
-        <script src = "http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-        </head>
+    </head>
     <body>
         <div id="map-canvas"></div>
-<div id="markers"></div>
-    </body>
-<script type = "text/javascript">
-function initialize() {
+        </body>
+    <script src = "http://maps.google.com/maps/api/js?sensor=false&.js"> </script>
+    <script type = "text/javascript">
+ var geocoder;
 
-    var markers = new Array();
+ var map;
 
-    var mapOptions = {
-        zoom: 5,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: new google.maps.LatLng(1, 1)
-    };
+ function initialize() {
 
-    var locations = [
-        [new google.maps.LatLng(0, 0), 'Marker 1', 'Infowindow content for Marker 1'],
-        [new google.maps.LatLng(0, 1), 'Marker 2', 'Infowindow content for Marker 2'],
-        [new google.maps.LatLng(0, 2), 'Marker 3', 'Infowindow content for Marker 3'],
-        [new google.maps.LatLng(1, 0), 'Marker 4', 'Infowindow content for Marker 4'],
-        [new google.maps.LatLng(1, 1), 'Marker 5', 'Infowindow content for Marker 5'],
-        [new google.maps.LatLng(1, 2), 'Marker 6', 'Infowindow content for Marker 6']
-    ];
+     geocoder = new google.maps.Geocoder();
 
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    // for (var i = 1; i < localStorage.itemCount; i ++) {
+    //   var obj = JSON.parse(localStorage.getItem('Item' + i));
+    //   var objType = obj.Location;
+    // }
 
-    var infowindow = new google.maps.InfoWindow();
 
-    for (var i = 0; i < locations.length; i++) {
+     var address = "new delhi";
 
-        // Append a link to the markers DIV for each marker
-        $('#markers').append('<a class="marker-link" data-markerid="' + i + '" href="#">' + locations[i][1] + '</a> ');
+     geocoder.geocode({
+         'address': address
+     }, function (results, status) {
 
-        var marker = new google.maps.Marker({
-            position: locations[i][0],
-            map: map,
-            title: locations[i][1],
-        });
+         if (status == google.maps.GeocoderStatus.OK) {
 
-        // Register a click event listener on the marker to display the corresponding infowindow content
-        google.maps.event.addListener(marker, 'click', (function (marker, i) {
+             var latitude = results[0].geometry.location.lat();
 
-            return function () {
-                <!-- infowindow.setContent(locations[i][2]); -->
-                infowindow.open(map, marker);
-            }
+             var longitude = results[0].geometry.location.lng();
 
-        })(marker, i));
+             alert(latitude);
 
-        // Add marker to markers array
-        markers.push(marker);
-    }
+             alert(longitude);
 
-    // Trigger a click event on each marker when the corresponding marker link is clicked
-    $('.marker-link').on('click', function () {
 
-        google.maps.event.trigger(markers[$(this).data('markerid')], 'click');
-    });
-}
 
-initialize();
-</script>
-    </html>
+
+             var latlng = new google.maps.LatLng(latitude, longitude);
+
+             var mapOptions = {
+
+                 zoom: 8,
+
+                 center: latlng,
+
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+
+             }
+
+             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+             var latlng = new google.maps.LatLng(latitude, longitude);
+             map.setCenter(latlng);
+
+             var marker = new google.maps.Marker({
+
+                 map: map,
+
+                 position: latlng,
+                 title: 'Hello World!'
+
+             });
+         }
+
+     });
+ }
+ </script>
+</html>

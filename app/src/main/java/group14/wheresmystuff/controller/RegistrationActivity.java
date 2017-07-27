@@ -62,7 +62,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 boolean cancel = false;
                 View focusView = null;
 
-                if (!isPasswordValid(password)) {
+                if (isPasswordInvalid(password)) {
                     mPasswordView.setError(getString(R.string.error_invalid_password));
                     focusView = mPasswordView;
                     cancel = true;
@@ -80,7 +80,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     cancel = true;
                 }
 
-                if (!isUserIDValid(userID)) {
+                if (isUserIDInvalid(userID)) {
                     mUserIDView.setError("Username already exists");
                     focusView = mUserIDView;
                     cancel = true;
@@ -108,23 +108,23 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isUserIDValid(String userID){
-        boolean valid = true;
+    private boolean isUserIDInvalid(String userID){
+        boolean invalid = false;
         ArrayList<User> userList = Model.getUserList();
         for(int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getLoginID().equals(userID)){
-                valid = false;
+                invalid = true;
             }
         }
-        return valid;
+        return invalid;
     }
 
 
-    private boolean isPasswordValid(String password){
-        return password.length() >= 4;
+    private boolean isPasswordInvalid(String password){
+        return !(password.length() >= 4);
     }
 
-    public void goToPage(Class next) {
+    private void goToPage(Class next) {
         Intent intent = new Intent(this, next);
         startActivity(intent);
     }

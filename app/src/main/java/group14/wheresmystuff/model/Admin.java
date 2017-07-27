@@ -1,8 +1,5 @@
 package group14.wheresmystuff.model;
 
-/**
- * Created by will on 6/21/2017.
- */
 
 public class Admin extends User {
 

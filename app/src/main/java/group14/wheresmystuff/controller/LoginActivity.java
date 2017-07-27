@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
-    private TextView forgotPassLink;
+//    private TextView forgotPassLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
-        forgotPassLink = (TextView) findViewById(R.id.forgotPassLink);
+//        forgotPassLink = (TextView) findViewById(R.id.forgotPassLink);
 //        forgotPassLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -142,11 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
-//    private boolean isPasswordValid(String password) {
-//        return password.length() >= 4;
-//    }
-
-    public void onForgetClick(View view) {
+    public void onForgetClick() {
         goToPage(RegistrationActivity.class);
     }
 
@@ -197,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void goToPage(Class next) {
+    private void goToPage(Class next) {
         Intent intent = new Intent(this, next);
         startActivity(intent);
     }

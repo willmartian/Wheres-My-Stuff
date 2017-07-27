@@ -38,6 +38,7 @@ var mapOptions = {
 var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     codeAddress();
 }
+<<<<<<< HEAD
       function codeAddress() {
           var obj = JSON.parse(localStorage.getItem('Item1'));
           var objLocation = obj.Location;
@@ -59,6 +60,46 @@ var map = new google.maps.Map(document.getElementById("map"), mapOptions);
             
         }
     });
+=======
+// var infoWindows = [];
+function codeAddress(aMap) {
+    // var infoWindows = [];
+    for (var i = 1; i < localStorage.itemCount; i ++) {
+    	var obj = JSON.parse(localStorage.getItem('Item' + i));
+    	var objLocation = obj.Location;
+    	var address = objLocation
+    	geocoder.geocode({
+        	'address': address
+	    }, function (results, status) {
+	        if (status == google.maps.GeocoderStatus.OK) {
+	            var latitude = results[0].geometry.location.lat();
+	            var longitude = results[0].geometry.location.lng();
+	            var pos = new google.maps.LatLng(latitude,longitude)
+	            // map.setCenter(results[0].geometry.location.lat(),results[0].geometry.location.lng() );
+	            var infowindow = new google.maps.InfoWindow({
+	          		content: "<h3><b>" + obj.Name + "</b></h3>" +
+	          				"<p><em>" + obj.Type + ", " + obj.Category+ "</em><br/>" +
+	          				obj.Description + "<br/>" +
+	          				obj.Reward + "</p>"
+	        	});
+	        	// infoWindows.splice(i, 0, infowindow);
+
+	            marker = new google.maps.Marker({
+	                position: pos,
+	                map : aMap,
+	                title: "Item"
+	            }); 
+
+	            marker.addListener('click', function(obj) {
+	          		infowindow.open(aMap, marker);
+	        	});
+
+	            marker.setMap(aMap);
+	        	// markers.push(marker);    
+	        }
+	    });
+	}
+>>>>>>> 9cdb56fe637eae21d8918fcc7ee7a50b53e56a74
 }
 </script>
 

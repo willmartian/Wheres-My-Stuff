@@ -1,24 +1,19 @@
 package group14.wheresmystuff.controller;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.graphics.Bitmap;
+//import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 
-import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.content.Intent;
 import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLngBounds;
+//import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -34,7 +29,7 @@ import group14.wheresmystuff.model.Model;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     MapView mapView;
-    GoogleMap map;
+    private GoogleMap map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,14 +75,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    public Marker addMarker(LatLng latlng, String title, Bitmap icon) {
+    private Marker addMarker(LatLng latlng, String title) {
         MarkerOptions newMarker = new MarkerOptions();
         newMarker.position(latlng).title(title);
         return map.addMarker(newMarker);
     }
 
-    public LatLng convertAddress(String address) {
-        Geocoder geoCoder = new Geocoder(this);
+    private final Context context = Model.getContext();
+    private  LatLng convertAddress(String address) {
+        Geocoder geoCoder = new Geocoder(context);
         if (address != null && !address.isEmpty()) {
             try {
                 List<Address> addressList = geoCoder.getFromLocationName(address, 1);
@@ -109,9 +105,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int i = 0;
         for (Item item : Model.getItemList()) {
             LatLng location = convertAddress(item.getLocation());
-            Marker itemMarker = addMarker(location, item.getName(), item.getIcon());
+            Marker itemMarker = addMarker(location, item.getName());
             itemMarker.setTag(item);
-            if (getIntent().getExtras() != null && i == getIntent().getExtras().getInt("ItemIndex")) {
+            if (getIntent().getExtras() != null && i == getIntent().getExtras().getInt("itemIndex")) {
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
             }
             i++;
@@ -123,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 int p = 0;
                 for (Item item : Model.getItemList()) {
 //                    if (item.equals(marker.getTag())) {
-                    if (marker.getTag().toString().equals(item.toString())) {
+                    if (marker.getTag() != null && marker.getTag().toString().equals(item.toString())) {
                         bundle.putInt("itemIndex", p);
                         goToPage(ItemActivity.class, bundle);
                     }
@@ -133,34 +129,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    public void mynotify(String title, String content) {
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.notifyicon)
-                        .setContentTitle(title)
-                        .setContentText(content);
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(MainActivity.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        final int NOTIFICATION_ID = 0;
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-    }
-
-    public void goToPage(Class next) {
+    private void goToPage(Class next) {
         Intent intent = new Intent(this, next);
         startActivity(intent);
     }
 
-    public void goToPage(Class next, Bundle bundle) {
+    private void goToPage(Class next, Bundle bundle) {
         Intent intent = new Intent(this, next);
         intent.putExtras(bundle);
         startActivity(intent);

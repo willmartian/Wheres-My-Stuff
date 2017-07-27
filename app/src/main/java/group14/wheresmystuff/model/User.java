@@ -1,8 +1,6 @@
 package group14.wheresmystuff.model;
 
-/**
- * Created by will on 6/21/2017.
- */
+
 
 public class User {
     private String name, loginID, password, email;
@@ -21,7 +19,7 @@ public class User {
         if (obj.getClass() != User.class) {
             return false;
         }
-        return ((User) obj).getLoginID() == this.loginID;
+        return ((User) obj).getLoginID().equals(this.loginID);
     }
 
     /**
@@ -48,7 +46,7 @@ public class User {
 
     /**
      * setter for name
-     * @param name
+     * @param name the name
      */
     public void setName(String name) {
         this.name = name;
@@ -56,7 +54,7 @@ public class User {
 
     /**
      * setter for login ID
-     * @param loginID
+     * @param loginID the id
      */
     public void setLoginID(String loginID) {
         this.loginID = loginID;
@@ -64,7 +62,7 @@ public class User {
 
     /**
      * setter for password
-     * @param password
+     * @param password the password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -80,7 +78,7 @@ public class User {
 
     /**
      * setter for email
-     * @param email
+     * @param email the email
      */
     public void setEmail(String email) {
         this.email = email;

@@ -1,17 +1,10 @@
 package group14.wheresmystuff.model;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
-import com.google.android.gms.maps.model.Marker;
-
-/**
- * Created by will on 6/27/2017.
- */
-
 
 
 public class Item {
@@ -41,7 +34,7 @@ public class Item {
     }
 
     public enum ItemType {
-        LOST, FOUND, NEED;
+        LOST, FOUND, NEED
     }
 
     public Item(ItemType itemType, String name, String description,
@@ -64,7 +57,7 @@ public class Item {
         if (object.getClass() != this.getClass()) {
             return false;
         }
-        return this.toString() == object.toString();
+        return this.toString().equals(object.toString());
     }
 
     @Override
@@ -72,16 +65,19 @@ public class Item {
         return itemType.toString() + ": \"" + name + "\" in " + location;
     }
 
+    public String getIconString() {
+        return iconString;
+    }
+
     public Bitmap getIcon() {
         if( !iconString.equalsIgnoreCase("") ){
             byte[] b = Base64.decode(iconString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-            return bitmap;
+            return BitmapFactory.decodeByteArray(b, 0, b.length);
         }
         return null;
     }
 
-    public void setIcon(Bitmap icon) {
+    private void setIcon(Bitmap icon) {
         if (icon == null) {
             iconString = "";
             return;
@@ -103,7 +99,7 @@ public class Item {
 
     /**
      * setter for name
-     * @param name
+     * @param name the name
      */
     public void setName(String name) {
         this.name = name;
@@ -119,7 +115,7 @@ public class Item {
 
     /**
      * setter for description
-     * @param description
+     * @param description the description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -135,7 +131,7 @@ public class Item {
 
     /**
      * setter for location
-     * @param location
+     * @param location the location
      */
     public void setLocation(String location) {
         this.location = location;
@@ -151,7 +147,7 @@ public class Item {
 
     /**
      * setter for creator
-     * @param creator
+     * @param creator the creator
      */
     public void setCreator(User creator) {
         this.creator = creator;
@@ -167,7 +163,7 @@ public class Item {
 
     /**
      * setter for date
-     * @param date
+     * @param date the date
      */
     public void setDate(Date date) {
         this.date = date;
@@ -183,7 +179,7 @@ public class Item {
 
     /**
      * setter for open
-     * @param open
+     * @param open is open
      */
     public void setOpen(boolean open) {
         this.open = open;
@@ -199,7 +195,7 @@ public class Item {
 
     /**
      * setter for category
-     * @param category
+     * @param category the category
      */
     public void setCategory(Category category) {
         this.category = category;
@@ -215,7 +211,7 @@ public class Item {
 
     /**
      * setter for item type
-     * @param itemType
+     * @param itemType the type of the item
      */
     public void setItemType(ItemType itemType) {
         this.itemType = itemType;
@@ -231,7 +227,7 @@ public class Item {
 
     /**
      * setter for reward
-     * @param reward
+     * @param reward the reward
      */
     public void setReward(double reward) {
         this.reward = reward;

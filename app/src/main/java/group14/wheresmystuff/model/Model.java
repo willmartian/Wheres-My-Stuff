@@ -1,9 +1,5 @@
 package group14.wheresmystuff.model;
 
-/**
- * Created by will on 6/21/2017.
- */
-
 import android.app.Application;
 import android.content.Context;
 import android.preference.PreferenceManager;
@@ -12,7 +8,6 @@ import java.util.ArrayList;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 
-import group14.wheresmystuff.controller.MainActivity;
 
 
 public class Model extends Application {
@@ -26,23 +21,27 @@ public class Model extends Application {
     @Override
     public void onCreate() {
         context = getApplicationContext();
-        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
+//        clearSaveData(); // CALL TO CLEAR ALL PREVIOUS DATA
         super.onCreate();
         loadUserList();
         loadItemList();
         if (firstLaunch) {
             addUser(new User("Default User", "user", "pass", "user@example.com"));
-            addItem(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0), null));
+//            addItem(new Item(Item.ItemType.LOST, "Mittens", "A cute kitty.", "North Ave NW, Atlanta, GA 30332", Item.Category.MISC, 1000000, userList.get(0), null));
         }
         firstLaunch = false;
+    }
+
+    public static Context getContext() {
+        return context;
     }
 
     /**
      * Clears the saved user and item data in SharedPreferences
      */
     private void clearSaveData() {
-        userList = new ArrayList<User>();
-        itemList = new ArrayList<Item>();
+        userList = new ArrayList<>();
+        itemList = new ArrayList<>();
         objToJson("users", userList);
         objToJson("items", itemList);
     }
@@ -72,7 +71,7 @@ public class Model extends Application {
      */
     public static void addItem(Item item) {
         for (Item itemB : itemList) {
-            if (item.toString() == itemB.toString()) {
+            if (item.toString().equals(itemB.toString())) {
                 return;
             }
         }
@@ -112,7 +111,7 @@ public class Model extends Application {
      * @return the filtered itemList
      */
     public static ArrayList<Item> getItemList(Enum... filters) {
-        ArrayList<Item> filteredList = new ArrayList<Item>();
+        ArrayList<Item> filteredList = new ArrayList<>();
         for (Item item : itemList) {
             boolean check = false;
             for (Enum filter : filters) {
@@ -136,7 +135,7 @@ public class Model extends Application {
     }
 
     public static ArrayList<Item> getItemList(String query) {
-        ArrayList<Item> filteredList = new ArrayList<Item>();
+        ArrayList<Item> filteredList = new ArrayList<>();
         for (Item item: itemList) {
             if (item.getName().toLowerCase().contains(query.toLowerCase())
                     || item.getDescription().toLowerCase().contains(query.toLowerCase())) {
@@ -147,18 +146,20 @@ public class Model extends Application {
     }
 
     /**
-     * loads the user list from sava data
+     * loads the user list from save data
      */
     private static void loadUserList() {
         try {
             Type listType = new TypeToken<ArrayList<User>>() {}.getType();
-            userList = (ArrayList<User>) jsonToObj("users", listType);
+            if (listType.getClass().equals(User.class)) {
+                userList = (ArrayList<User>) jsonToObj("users", listType);
+            }
             if (userList == null) {
-                userList = new ArrayList<User>();
+                userList = new ArrayList<>();
             }
 
         } catch (Exception | Error e) {
-            userList = new ArrayList<User>();
+            userList = new ArrayList<>();
         }
     }
 
@@ -168,12 +169,14 @@ public class Model extends Application {
     private static void loadItemList() {
         try {
             Type listType = new TypeToken<ArrayList<Item>>() {}.getType();
-            itemList = (ArrayList<Item>) jsonToObj("items", listType);
+            if (listType.getClass().equals(Item.class)) {
+                itemList = (ArrayList<Item>) jsonToObj("items", listType);
+            }
             if (itemList == null) {
-                itemList = new ArrayList<Item>();
+                itemList = new ArrayList<>();
             }
         } catch (Exception | Error e) {
-            itemList = new ArrayList<Item>();
+            itemList = new ArrayList<>();
         }
     }
 
@@ -202,4 +205,16 @@ public class Model extends Application {
                 .putString(title, json).apply();
         return json;
     }
+
+//      FOR TESTING--------------------------------
+//    public static String objToJson(Object obj) {
+//        Gson gson = new Gson();
+//        return gson.toJson(obj);
+//    }
+//
+//
+//    public static Object jsonToObj(String json, Class type) {
+//        Gson gson = new Gson();
+//        return gson.fromJson(json, type);
+//    }
 }
