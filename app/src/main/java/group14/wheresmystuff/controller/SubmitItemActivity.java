@@ -1,11 +1,15 @@
 package group14.wheresmystuff.controller;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
@@ -27,7 +31,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import android.location.Location;
 import android.content.Context;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import group14.wheresmystuff.R;
@@ -36,39 +39,37 @@ import group14.wheresmystuff.model.Item.*;
 import group14.wheresmystuff.model.Model;
 
 
-/**
- * Created by Richard on 6/22/2017.
- */
+
 
 public class SubmitItemActivity extends AppCompatActivity {
-    public static final int GET_FROM_GALLERY = 13;
+    private static final int GET_FROM_GALLERY = 13;
     private FusedLocationProviderClient fusedLocationClient;
-    String name;
-    String description;
-    String reward;
-    String location;
-    Bitmap icon;
-    Category itemCategory;
-    RadioButton foundButton;
-    RadioButton lostButton;
-    RadioButton donateButton;
-    EditText nameBox;
-    EditText descriptionBox;
-    EditText rewardBox;
-    EditText locationBox;
-    Spinner spinnerBox;
-    ItemType itemType;
-    String[] categoryArray;
-    Spinner categorySpinner;
+    private String name;
+    private String description;
+    private String reward;
+    private String location;
+    private Bitmap icon;
+    private Category itemCategory;
+    private RadioButton foundButton;
+    private RadioButton lostButton;
+    private RadioButton donateButton;
+    private EditText nameBox;
+    private EditText descriptionBox;
+    private EditText rewardBox;
+    private EditText locationBox;
+//    Spinner spinnerBox;
+    private ItemType itemType;
 
-    Boolean edit = false;
-    Item item;
+    private Spinner categorySpinner;
+
+    private Boolean edit = false;
+    private Item item;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submititem);
         getSupportActionBar().setTitle("Where's My Stuff? - " + Model.getActiveUser().getName());
-
+        String[] categoryArray;
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         Bundle itemBundle = getIntent().getExtras();
         if (itemBundle != null) {
@@ -83,13 +84,13 @@ public class SubmitItemActivity extends AppCompatActivity {
         descriptionBox = (EditText) findViewById(R.id.descriptionTextBox);
         rewardBox = (EditText) findViewById(R.id.rewardTextBox);
         locationBox = (EditText) findViewById(R.id.locationTextBox);
-        spinnerBox = (Spinner) findViewById(R.id.categorySpinner);
+//        spinnerBox = (Spinner) findViewById(R.id.categorySpinner);
         categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
         categoryArray = Item.Category.stringEnumArray();
 
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, categoryArray);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -157,7 +158,7 @@ public class SubmitItemActivity extends AppCompatActivity {
                     reward = "0";
                 }
                 location = locationBox.getText().toString();
-                itemCategory = Category.valueOf(spinnerBox.getSelectedItem().toString());
+                itemCategory = Category.valueOf(categorySpinner.getSelectedItem().toString());
 
                 if (foundButton.isChecked()) {
                     itemType = ItemType.FOUND;
@@ -173,7 +174,8 @@ public class SubmitItemActivity extends AppCompatActivity {
                         Model.removeItem(item);
                     }
 
-                    Model.addItem(new Item(itemType, name, description, location, itemCategory, new Double(reward), Model.getActiveUser(), icon));
+                    Model.addItem(new Item(itemType, name, description, location, itemCategory, Double.valueOf(reward), Model.getActiveUser(), icon));
+                    myNotify("New Item Added!", Model.getActiveUser().getName() + " added a new item: " + name);
                     goToPage(DisplayItemsActivity.class);
                 }
             }
@@ -182,8 +184,30 @@ public class SubmitItemActivity extends AppCompatActivity {
     }
 
 
-    public void onImageClick(View view) {
+    public void onImageClick() {
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+    }
+
+    private void myNotify(String title, String content) {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.notifyicon)
+                        .setContentTitle(title)
+                        .setContentText(content);
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final int NOTIFICATION_ID = 0;
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
     @Override
@@ -197,9 +221,6 @@ public class SubmitItemActivity extends AppCompatActivity {
 //            Bitmap bitmap = null;
             try {
                 icon = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -215,11 +236,9 @@ public class SubmitItemActivity extends AppCompatActivity {
         EditText[] elementArray = {nameBox, descriptionBox, rewardBox, locationBox};
         String[] valueArray = {name, description, reward, location};
         boolean cancel = false;
-        View focusView = null;
         for (int i = 0; i < elementArray.length; i++) {
             if (TextUtils.isEmpty(valueArray[i])) {
                 elementArray[i].setError(getString(R.string.error_field_required));
-                focusView = nameBox;
                 cancel = true;
             }
         }
@@ -229,12 +248,12 @@ public class SubmitItemActivity extends AppCompatActivity {
     private void fillInfo() {
         nameBox.setText(item.getName());
         descriptionBox.setText(item.getDescription());
-        rewardBox.setText(new Double(item.getReward()).toString());
+        rewardBox.setText(Double.toString(item.getReward()));
         locationBox.setText(item.getLocation());
         icon = item.getIcon();
     }
 
-    public void goToPage(Class next) {
+    private void goToPage(Class next) {
         Intent intent = new Intent(this, next);
         startActivity(intent);
     }

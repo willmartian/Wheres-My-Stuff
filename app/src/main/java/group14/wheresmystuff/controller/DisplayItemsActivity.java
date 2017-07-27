@@ -16,20 +16,14 @@ import android.content.Intent;
 import java.util.ArrayList;
 
 import group14.wheresmystuff.R;
-import group14.wheresmystuff.model.Item;
 
 import group14.wheresmystuff.model.Item.ItemType;
 
 import group14.wheresmystuff.model.Model;
 
-import static group14.wheresmystuff.R.id.searchBar;
-
-/**
- * Created by Richard on 6/28/2017.
- */
 
 public class DisplayItemsActivity extends AppCompatActivity {
-    ListView list;
+    private ListView list;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_displayitems);
@@ -89,7 +83,7 @@ public class DisplayItemsActivity extends AppCompatActivity {
      */
     private void populateListView(ArrayList itemList) {
         Object[] Items = itemList.toArray();
-        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.simple_list_item_1, Items);
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.simple_list_item_1, Items);
         list = (ListView) findViewById(R.id.listViewMain);
         list.setAdapter(adapter);
     }
@@ -98,13 +92,13 @@ public class DisplayItemsActivity extends AppCompatActivity {
      * Set the app view to a given activity
      * @param next the activity to go to
      */
-    public void goToPage(Class next) {
+    private void goToPage(Class next) {
         Intent intent = new Intent(this, next);
         startActivity(intent);
     }
 
 
-    public void goToPage(Class next, Bundle bundle) {
+    private void goToPage(Class next, Bundle bundle) {
         Intent intent = new Intent(this, next);
         intent.putExtras(bundle);
         startActivity(intent);
