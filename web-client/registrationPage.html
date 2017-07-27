@@ -30,7 +30,7 @@
       document.getElementById("registerButton").onclick = function () {
         var userDoesNotExist = true;
       $.each(localStorage, function(key, value){
-        if (key = document.getElementById("userName").value) {
+        if (key == document.getElementById("userName").value) {
           alert("Sorry, that username is already in use");
           userDoesNotExist = false;
         }
